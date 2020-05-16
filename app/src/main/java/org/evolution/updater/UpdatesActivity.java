@@ -42,6 +42,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -188,14 +190,6 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
                 BuildInfoUtils.getBuildVersion()));
 
         updateLastCheckedString();
-
-        TextView headerBuildVersion = findViewById(R.id.header_build_version);
-        headerBuildVersion.setText(
-                getString(R.string.header_android_version, Build.VERSION.RELEASE));
-
-        TextView headerBuildDate = findViewById(R.id.header_build_date);
-        headerBuildDate.setText(StringGenerator.getDateLocalizedUTC(this,
-                DateFormat.LONG, BuildInfoUtils.getBuildDateTimestamp()));
 
         if (!mIsTV) {
             // Switch between header title and appbar title minimizing overlaps
@@ -505,6 +499,72 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
                 StringGenerator.getTimeLocalized(this, lastCheck));
         TextView headerLastCheck = findViewById(R.id.header_last_check);
         headerLastCheck.setText(lastCheckString);
+
+        TextView headerBuildVersion = findViewById(R.id.header_build_version);
+        headerBuildVersion.setText(
+                getString(R.string.header_android_version, Build.VERSION.RELEASE));
+
+        TextView headerBuildDate = findViewById(R.id.header_build_date);
+        headerBuildDate.setText(getString(R.string.current_build_date, StringGenerator.getDateLocalizedUTC(this,
+                DateFormat.LONG, BuildInfoUtils.getBuildDateTimestamp())));
+
+        TextView MaintainerName = findViewById(R.id.maintainer_name);
+        String maintainer = Utils.getMaintainer();
+        LinearLayout supportLayout = (LinearLayout) this.findViewById(R.id.support_icons);
+        if (maintainer == null || maintainer.isEmpty()) {
+            MaintainerName.setVisibility(View.GONE);
+            supportLayout.setVisibility(LinearLayout.GONE);
+        } else {
+            MaintainerName.setText(getString(R.string.maintainer_name, maintainer));
+            MaintainerName.setVisibility(View.VISIBLE);
+            supportLayout.setVisibility(LinearLayout.VISIBLE);
+        }
+
+        ImageView forumImage = findViewById(R.id.support_forum);
+        String forum = Utils.getForum();
+        forumImage.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse(forum));
+                startActivity(intent);
+                }
+            });
+
+        ImageView paypalImage = findViewById(R.id.support_paypal);
+        String paypal = Utils.getPaypal();
+        if (paypal == null || paypal.isEmpty()) {
+            paypalImage.setVisibility(View.GONE);
+        } else {
+            paypalImage.setVisibility(View.VISIBLE);
+            paypalImage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(paypal));
+                    startActivity(intent);
+                    }
+            });
+        }
+
+        ImageView firmwareImage = findViewById(R.id.support_firmware);
+        String firmware = Utils.getFirmware();
+        if (firmware == null || firmware.isEmpty()) {
+            firmwareImage.setVisibility(View.GONE);
+        } else {
+            firmwareImage.setVisibility(View.VISIBLE);
+            firmwareImage.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse(firmware));
+                    startActivity(intent);
+                    }
+            });
+        }
     }
 
     private void handleDownloadStatusChange(String downloadId) {
