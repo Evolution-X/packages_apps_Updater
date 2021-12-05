@@ -1,6 +1,6 @@
 #!/bin/sh
 
-updates_dir=/data/lineageos_updates
+updates_dir=/data/evolution_updates
 
 # $1 = ZIP
 # $2 = UNVERIFIED (optional)
@@ -9,7 +9,7 @@ if [ ! -f "$1" ]; then
    echo "Usage: $0 ZIP [UNVERIFIED] [SERIAL]"
    echo "Push ZIP to $updates_dir and add it to Updater"
    echo
-   echo "The name of ZIP is assumed to have lineage-VERSION-DATE-TYPE-* as format"
+   echo "The name of ZIP is assumed to have EevolutionX-VERSION-DATE-TYPE-* as format"
    echo "If UNVERIFIED is set, the app will verify the update"
    exit
 fi
@@ -41,7 +41,7 @@ else
     status=2
 fi
 
-# Assume lineage-VERSION-DATE-TYPE-*.zip
+# Assume EvolutionX-VERSION-DATE-TYPE-*.zip
 zip_name=`basename "$zip_path"`
 id=`echo "$zip_name" | sha1sum | cut -d' ' -f1`
 version=`echo "$zip_name" | cut -d'-' -f2`
@@ -60,8 +60,8 @@ $ADB shell chgrp cache "$zip_path_device"
 $ADB shell chmod 664 "$zip_path_device"
 
 # Kill the app before updating the database
-$ADB shell "killall org.lineageos.updater 2>/dev/null"
-$ADB shell "sqlite3 /data/data/org.lineageos.updater/databases/updates.db" \
+$ADB shell "killall org.evolution.updater 2>/dev/null"
+$ADB shell "sqlite3 /data/data/org.evolution.updater/databases/updates.db" \
     "\"INSERT INTO updates (status, path, download_id, timestamp, type, version, size)" \
     "  VALUES ($status, '$zip_path_device', '$id', $timestamp, '$type', '$version', $size)\""
 
