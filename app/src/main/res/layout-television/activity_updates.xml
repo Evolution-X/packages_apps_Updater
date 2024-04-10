@@ -24,21 +24,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/header_title"
+            <ImageView
+                android:id="@+id/header_image"
+                android:adjustViewBounds="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:paddingBottom="16dp"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="56sp"
-                tools:text="Evolution X\n20" />
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_evolution_logo"
+                android:paddingBottom="16dp" />
 
             <TextView
                 android:id="@+id/header_build_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/header_title"
+                android:layout_below="@id/header_image"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="14sp"
                 tools:text="Android 13"/>
