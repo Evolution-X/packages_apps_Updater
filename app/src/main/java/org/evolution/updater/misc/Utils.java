@@ -62,7 +62,6 @@ public class Utils {
     private static String mMaintainer;
     private static String mBuildType;
     private static String mForum;
-    private static String mTelegram;
     private static String mFirmware;
     private static String mPaypal;
 
@@ -101,7 +100,6 @@ public class Utils {
         mMaintainer = object.getString("maintainer");
         mBuildType = object.getString("buildtype");
         mForum = object.getString("forum");
-        mTelegram = object.getString("telegram");
         mFirmware = object.getString("firmware");
         mPaypal = object.getString("paypal");
         return update;
@@ -430,10 +428,6 @@ public class Utils {
 
     public static String getForum() {
         return mForum;
-    }
-
-    public static String getTelegram() {
-        return mTelegram;
     }
 
     public static String getFirmware() {
