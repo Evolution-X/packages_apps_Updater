@@ -528,23 +528,6 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
                 }
             });
 
-        ImageView telegramImage = findViewById(R.id.support_telegram);
-        String telegram = Utils.getTelegram();
-        if (telegram == null || telegram.isEmpty()) {
-            telegramImage.setVisibility(View.GONE);
-        } else {
-            telegramImage.setVisibility(View.VISIBLE);
-            telegramImage.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_VIEW);
-                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                    intent.setData(Uri.parse(telegram));
-                    startActivity(intent);
-                    }
-            });
-        }
-
         ImageView paypalImage = findViewById(R.id.support_paypal);
         String paypal = Utils.getPaypal();
         if (paypal == null || paypal.isEmpty()) {
