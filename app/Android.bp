@@ -16,7 +16,7 @@ android_app {
 
     platform_apis: true,
     privileged: true,
-    privapp_allowlist: "org.lineageos.updater.xml",
+    privapp_allowlist: "org.evolution.updater.xml",
     certificate: "platform",
     system_ext_specific: true,
 
@@ -41,14 +41,14 @@ android_app {
     },
 
     required: [
-        "default-permissions_org.lineageos.updater"
+        "default-permissions_org.evolution.updater"
     ],
 }
 
 prebuilt_etc {
-    name: "default-permissions_org.lineageos.updater",
+    name: "default-permissions_org.evolution.updater",
     system_ext_specific: true,
     sub_dir: "default-permissions",
-    src: "default-permissions_org.lineageos.updater.xml",
+    src: "default-permissions_org.evolution.updater.xml",
     filename_from_src: true,
 }
