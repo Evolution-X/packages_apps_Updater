@@ -58,6 +58,7 @@ public class HttpURLConnectionClient implements DownloadClient {
             DownloadClient.DownloadCallback callback,
             boolean useDuplicateLinks) throws IOException {
         mClient = (HttpURLConnection) new URL(url).openConnection();
+        mClient.setRequestProperty("User-Agent", "EvoXUpdater/1.0");
         mDestination = destination;
         mProgressListener = progressListener;
         mCallback = callback;
@@ -181,6 +182,7 @@ public class HttpURLConnectionClient implements DownloadClient {
             if (range != null) {
                 mClient.setRequestProperty("Range", range);
             }
+            mClient.setRequestProperty("User-Agent", "EvoXUpdater/1.0");
         }
 
         private void handleDuplicateLinks() throws IOException {
