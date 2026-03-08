@@ -175,7 +175,7 @@ public class UpdaterService extends Service {
         Log.d(TAG, "Starting service");
 
         if (intent == null || intent.getAction() == null) {
-            if (ABUpdateInstaller.isInstallingUpdate(this)) {
+            if (ABUpdateInstaller.isInstallingInProgress(this)) {
                 // The service is being restarted.
                 ABUpdateInstaller installer = ABUpdateInstaller.getInstance(this,
                         mUpdaterController);
@@ -413,9 +413,10 @@ public class UpdaterService extends Service {
 
                 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
                 boolean deleteUpdate = pref.getBoolean(Constants.PREF_AUTO_DELETE_UPDATES, false);
-                boolean isLocal = Update.LOCAL_ID.equals(update.getDownloadId());
-                // Always delete local updates
-                if (deleteUpdate || isLocal) {
+                // Keep local imported update visible while waiting for reboot,
+                // otherwise returning to the updater screen shows an empty list.
+                // Auto-delete remains only for non-local online updates.
+                if (deleteUpdate && !Update.LOCAL_ID.equals(update.getDownloadId())) {
                     mUpdaterController.deleteUpdate(update.getDownloadId());
                 }
 

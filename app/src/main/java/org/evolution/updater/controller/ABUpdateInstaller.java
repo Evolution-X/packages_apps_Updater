@@ -120,6 +120,12 @@ class ABUpdateInstaller {
                 pref.getString(Constants.PREF_NEEDS_REBOOT_ID, null) != null;
     }
 
+    static synchronized boolean isInstallingInProgress(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getString(PREF_INSTALLING_AB_ID, null) != null;
+    }
+
+
     static synchronized boolean isInstallingUpdate(Context context, String downloadId) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         return downloadId.equals(pref.getString(ABUpdateInstaller.PREF_INSTALLING_AB_ID, null)) ||
@@ -235,10 +241,15 @@ class ABUpdateInstaller {
     }
 
     public void reconnect() {
-        if (!isInstallingUpdate(mContext)) {
-            Log.e(TAG, "reconnect: Not installing any update");
+        if (!isInstallingInProgress(mContext)) {
+            Log.d(TAG, "reconnect: no active installation in progress");
             return;
         }
+
+        if (mDownloadId == null) {
+            return;
+        }
+
 
         if (mBound) {
             return;
