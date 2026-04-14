@@ -194,6 +194,10 @@ public class UpdaterService extends Service {
         } else if (ACTION_INSTALL_UPDATE.equals(intent.getAction())) {
             String downloadId = intent.getStringExtra(EXTRA_DOWNLOAD_ID);
             UpdateInfo update = mUpdaterController.getUpdate(downloadId);
+            if (update == null) {
+                Log.e(TAG, "Update not found for id: " + downloadId);
+                return START_NOT_STICKY;
+            }
             if (update.getPersistentStatus() != UpdateStatus.Persistent.VERIFIED) {
                 throw new IllegalArgumentException(update.getDownloadId() + " is not verified");
             }
