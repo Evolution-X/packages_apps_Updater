@@ -5,18 +5,21 @@
 
 package org.lineageos.updater.ui
 
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.android.settingslib.spa.debug.UiModePreviews
 import com.android.settingslib.spa.framework.theme.SettingsTheme
+import org.lineageos.updater.R
+
+private val AnimationSize = 320.dp
 
 @Composable
 fun UpdateCheckAnimation(modifier: Modifier = Modifier) {
-    CircularProgressIndicator(
-        modifier = modifier,
-        strokeWidth = 6.dp,
+    Lottie(
+        resId = R.raw.loading_shapes_expressive,
+        modifier = modifier.size(AnimationSize),
     )
 }
 
