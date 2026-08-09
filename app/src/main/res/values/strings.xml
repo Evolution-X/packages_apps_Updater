@@ -66,6 +66,27 @@
     <string name="menu_preferences">System update preferences</string>
     <string name="preferences_summary">Sync, download and install</string>
 
+    <!-- System update screen -->
+    <string name="system_up_to_date_title">Your system is up to date</string>
+    <string name="update_available_title">System update available</string>
+    <string name="checking_for_update_title">Checking for update…</string>
+    <string name="preparing_update_title">Preparing system update…</string>
+    <string name="downloading_update_title">System update downloading…</string>
+    <string name="installing_update_title">Installing system update…</string>
+    <string name="verifying_update_title">Verifying system update…</string>
+    <string name="update_paused_title">System update paused</string>
+    <string name="action_download_install">Download and install</string>
+    <string name="downloading_installing_caption">Downloading and installing update</string>
+    <string name="metered_warning_footnote">Downloading updates over a mobile network or metered Wi-Fi may cause additional charges.</string>
+    <string name="updates_check_failed_title">Couldn\'t check for update</string>
+    <string name="check_for_update">Check for update</string>
+    <string name="header_last_check">Last successful check for update:</string>
+    <string name="header_lineage_version">LineageOS version: <xliff:g id="version" example="23.2">%1$s</xliff:g></string>
+    <string name="header_android_version_full">Android version: <xliff:g id="version" example="16">%1$s</xliff:g></string>
+    <string name="header_security_update_full">Android security update: <xliff:g id="date" example="5 July 2026">%1$s</xliff:g></string>
+    <string name="action_back">Back</string>
+    <string name="menu_more_options">More options</string>
+
     <!-- Update check -->
     <string name="check_for_updates">Check for updates</string>
     <string name="checking_for_updates">Checking for updates</string>
@@ -116,7 +137,6 @@
     <string name="header_build_version" translatable="false">LineageOS <xliff:g id="version" example="23.2">%1$s</xliff:g></string>
     <string name="build_date">Build date</string>
     <string name="security_update">Security update</string>
-    <string name="show_changelog">Recent changes</string>
     <string name="report_issues">Report issues</string>
     <string name="report_issue_url" translatable="false">https://wiki.lineageos.org/how-to/bugreport/</string>
     <string name="header_review_updates">Review updates and recent changes on</string>
