@@ -15,8 +15,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.lineageos.updater.data.Update
@@ -72,11 +70,9 @@ class UpdatesViewModel(
         viewModelScope.launch {
             networkMonitor.networkState
                 .distinctUntilChangedBy { it.isOnline }
-                .onEach { networkState ->
+                .collect { networkState ->
                     _uiState.update { it.copy(isOnline = networkState.isOnline) }
                 }
-                .filter { it.isOnline }
-                .collect { fetchUpdates() }
         }
     }
 

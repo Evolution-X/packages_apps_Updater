@@ -11,16 +11,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
@@ -29,31 +19,21 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.android.settingslib.spa.framework.compose.LocalNavController
 import com.android.settingslib.spa.framework.compose.NavControllerWrapper
 import com.android.settingslib.spa.framework.theme.SettingsTheme
-import com.android.settingslib.spa.widget.preference.Preference
-import com.android.settingslib.spa.widget.preference.PreferenceModel
-import com.android.settingslib.spa.widget.scaffold.SettingsScaffold
-import com.android.settingslib.spa.widget.ui.Category
 import org.lineageos.updater.controller.UpdaterController
 import org.lineageos.updater.data.Update
 import org.lineageos.updater.data.UpdateStatus
-import org.lineageos.updater.deviceinfo.DeviceInfoBanner
 import org.lineageos.updater.preferences.PreferencesActivity
-import org.lineageos.updater.updates.UpdateList
+import org.lineageos.updater.ui.SystemUpdateScreen
 import org.lineageos.updater.updates.action.AlertDialogState
 import org.lineageos.updater.updates.action.UpdateActionDialog
 import org.lineageos.updater.updates.action.UpdateActionHandler
 import org.lineageos.updater.updates.state.UpdateItemStateMapper
-import org.lineageos.updater.updatescheck.UpdatesCheck
-import org.lineageos.updater.updatescheck.UpdatesCheckModel
+import org.lineageos.updater.updatescheck.UpdatesCheckState
 import org.lineageos.updater.updatescheck.rememberUpdatesCheckUiState
 
 abstract class UpdatesScaffoldActivity : ComponentActivity() {
@@ -82,6 +62,7 @@ abstract class UpdatesScaffoldActivity : ComponentActivity() {
                         uiState = uiState,
                         updaterController = activeUpdaterController,
                         controllerStateVersion = controllerStateVersion,
+                        onBackClick = { finish() },
                         onRefreshClick = { onRefreshClick() },
                         onLocalUpdateClick = { onLocalUpdateClick() },
                         onPreferencesClick = {
@@ -118,157 +99,13 @@ private fun UpdatesScaffoldContent(
     uiState: UpdatesViewModel.UiState,
     updaterController: UpdaterController?,
     controllerStateVersion: Int,
+    onBackClick: () -> Unit,
     onRefreshClick: () -> Unit,
     onLocalUpdateClick: () -> Unit,
     onPreferencesClick: () -> Unit,
     onControllerStateChanged: () -> Unit,
 ) {
-    val title = getTitleForUpdateStatus(uiState.updates)
-
-    val actionDialogState = remember { mutableStateOf<AlertDialogState?>(null) }
-    actionDialogState.value?.let { dialog ->
-        UpdateActionDialog(
-            dialog = dialog,
-            onDismiss = { actionDialogState.value = null },
-        )
-    }
-
-    SettingsScaffold(title = title) { paddingValues ->
-        if (isWideScreen()) {
-            WideUpdatesScaffold(
-                paddingValues = paddingValues,
-                updatesCheckModel = uiState.updatesCheckModel,
-                updates = uiState.updates,
-                updaterController = updaterController,
-                controllerStateVersion = controllerStateVersion,
-                showDialog = { actionDialogState.value = it },
-                onControllerStateChanged = onControllerStateChanged,
-                onRefreshClick = onRefreshClick,
-                onLocalUpdateClick = onLocalUpdateClick,
-                onPreferencesClick = onPreferencesClick,
-            )
-        } else {
-            UpdatesScaffold(
-                paddingValues = paddingValues,
-                updatesCheckModel = uiState.updatesCheckModel,
-                updates = uiState.updates,
-                updaterController = updaterController,
-                controllerStateVersion = controllerStateVersion,
-                showDialog = { actionDialogState.value = it },
-                onControllerStateChanged = onControllerStateChanged,
-                onRefreshClick = onRefreshClick,
-                onLocalUpdateClick = onLocalUpdateClick,
-                onPreferencesClick = onPreferencesClick,
-            )
-        }
-    }
-}
-
-@Composable
-private fun WideUpdatesScaffold(
-    paddingValues: PaddingValues,
-    updatesCheckModel: UpdatesCheckModel,
-    updates: List<Update>,
-    updaterController: UpdaterController?,
-    controllerStateVersion: Int,
-    showDialog: (AlertDialogState) -> Unit,
-    onControllerStateChanged: () -> Unit,
-    onRefreshClick: () -> Unit,
-    onLocalUpdateClick: () -> Unit,
-    onPreferencesClick: () -> Unit,
-) {
-    val layoutDirection = LocalLayoutDirection.current
-
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                top = paddingValues.calculateTopPadding(),
-                start = paddingValues.calculateStartPadding(layoutDirection),
-                end = paddingValues.calculateEndPadding(layoutDirection),
-            )
-    ) {
-        UpdatesInformationPane(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxHeight()
-                .verticalScroll(rememberScrollState())
-                .padding(bottom = paddingValues.calculateBottomPadding()),
-        )
-        UpdatesActionPane(
-            model = updatesCheckModel,
-            updates = updates,
-            updaterController = updaterController,
-            controllerStateVersion = controllerStateVersion,
-            showDialog = showDialog,
-            onControllerStateChanged = onControllerStateChanged,
-            onRefreshClick = onRefreshClick,
-            onLocalUpdateClick = onLocalUpdateClick,
-            onPreferencesClick = onPreferencesClick,
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxHeight()
-                .verticalScroll(rememberScrollState())
-                .padding(bottom = paddingValues.calculateBottomPadding()),
-        )
-    }
-}
-
-@Composable
-private fun UpdatesScaffold(
-    paddingValues: PaddingValues,
-    updatesCheckModel: UpdatesCheckModel,
-    updates: List<Update>,
-    updaterController: UpdaterController?,
-    controllerStateVersion: Int,
-    showDialog: (AlertDialogState) -> Unit,
-    onControllerStateChanged: () -> Unit,
-    onRefreshClick: () -> Unit,
-    onLocalUpdateClick: () -> Unit,
-    onPreferencesClick: () -> Unit,
-) {
-    Column(
-        Modifier
-            .fillMaxSize()
-            .padding(paddingValues)
-            .verticalScroll(rememberScrollState())
-    ) {
-        UpdatesInformationPane()
-        UpdatesActionPane(
-            model = updatesCheckModel,
-            updates = updates,
-            updaterController = updaterController,
-            controllerStateVersion = controllerStateVersion,
-            showDialog = showDialog,
-            onControllerStateChanged = onControllerStateChanged,
-            onRefreshClick = onRefreshClick,
-            onLocalUpdateClick = onLocalUpdateClick,
-            onPreferencesClick = onPreferencesClick,
-        )
-    }
-}
-
-@Composable
-private fun UpdatesInformationPane(
-    modifier: Modifier = Modifier,
-) {
-    DeviceInfoBanner(modifier = modifier)
-}
-
-@Composable
-private fun UpdatesActionPane(
-    model: UpdatesCheckModel,
-    updates: List<Update>,
-    updaterController: UpdaterController?,
-    controllerStateVersion: Int,
-    showDialog: (AlertDialogState) -> Unit,
-    onControllerStateChanged: () -> Unit,
-    onRefreshClick: () -> Unit,
-    onLocalUpdateClick: () -> Unit,
-    onPreferencesClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    val context = androidx.compose.ui.platform.LocalContext.current
+    val context = LocalContext.current
     val activity = context as UpdatesScaffoldActivity
     val networkMonitor =
         remember { (context.applicationContext as UpdaterApplication).networkMonitor }
@@ -282,7 +119,7 @@ private fun UpdatesActionPane(
     )
 
     val updateItems = remember(
-        updates,
+        uiState.updates,
         updaterController,
         networkState,
         streamUpdatesEnabled,
@@ -290,11 +127,19 @@ private fun UpdatesActionPane(
     ) {
         val controller = updaterController ?: return@remember emptyList()
         val mapper = UpdateItemStateMapper(context, controller, streamUpdatesEnabled)
-        updates.mapNotNull { update ->
+        uiState.updates.mapNotNull { update ->
             controller.getUpdate(update.downloadId)?.let {
                 mapper.map(it, networkState)
             }
         }
+    }
+
+    val actionDialogState = remember { mutableStateOf<AlertDialogState?>(null) }
+    actionDialogState.value?.let { dialog ->
+        UpdateActionDialog(
+            dialog = dialog,
+            onDismiss = { actionDialogState.value = null },
+        )
     }
 
     val actionHandler = remember(updaterController) {
@@ -303,78 +148,96 @@ private fun UpdatesActionPane(
                 activity = activity,
                 updaterController = controller,
                 exportUpdate = { update -> activity.exportUpdate(update) },
-                showDialog = showDialog,
+                showDialog = { actionDialogState.value = it },
             )
         }
     }
-    val updatesCheckUiState = rememberUpdatesCheckUiState(model.state)
 
-    Column(modifier = modifier) {
-        UpdatesCheck(
-            model = model,
-            uiState = updatesCheckUiState,
-            onCheckClick = onRefreshClick,
-        )
-        UpdateList(
-            items = updateItems,
-            isUpdatesCheckStatusVisible = updatesCheckUiState.isStatusVisible,
-            onAction = { action, downloadId ->
-                val controller = updaterController ?: return@UpdateList
-                val update = controller.getUpdate(downloadId) ?: return@UpdateList
-                actionHandler?.perform(action, update)
-                onControllerStateChanged()
-            },
-        )
-        UpdatesFooter(
-            onLocalUpdateClick = onLocalUpdateClick,
-            onPreferencesClick = onPreferencesClick,
-        )
-    }
+    val model = uiState.updatesCheckModel
+    val checkUiState = rememberUpdatesCheckUiState(model.state)
+    val isChecking = checkUiState.displayedState is UpdatesCheckState.Checking
+    val isPreparing = uiState.updates.any { it.status == UpdateStatus.STARTING }
+    val isBusy = isChecking || isPreparing
+    val isIdleAndEmpty = updateItems.isEmpty() && !isBusy
+
+    val activeItem = updateItems.firstOrNull { it.progress != null } ?: updateItems.firstOrNull()
+
+    SystemUpdateScreen(
+        headline = getHeadline(
+            updates = uiState.updates,
+            displayedCheckState = checkUiState.displayedState,
+            isPreparing = isPreparing,
+            hasUpdateItems = updateItems.isNotEmpty(),
+        ),
+        supportingText = when (checkUiState.displayedState) {
+            UpdatesCheckState.NoInternet ->
+                stringResource(R.string.check_your_internet_connection)
+
+            UpdatesCheckState.Error -> stringResource(R.string.updates_check_failed)
+            else -> null
+        },
+        supportingTextIsError = checkUiState.displayedState is UpdatesCheckState.NoInternet ||
+                checkUiState.displayedState is UpdatesCheckState.Error,
+        isBusy = isBusy,
+        canCheckForUpdates = model.canCheckForUpdates,
+        showDeviceInfo = isIdleAndEmpty,
+        lastCheckedTimestamp = if (isIdleAndEmpty) model.lastCheckedTimestamp else 0L,
+        onBackClick = onBackClick,
+        onCheckClick = onRefreshClick,
+        onLocalUpdateClick = onLocalUpdateClick,
+        onPreferencesClick = onPreferencesClick,
+        updateItem = if (isBusy) null else activeItem,
+        onUpdateAction = { action ->
+            val item = activeItem
+            val controller = updaterController
+            if (item != null && controller != null) {
+                controller.getUpdate(item.downloadId)?.let { update ->
+                    actionHandler?.perform(action, update)
+                    onControllerStateChanged()
+                }
+            }
+        },
+    )
 }
 
 @Composable
-private fun isWideScreen(): Boolean {
-    val minWideScreenWidth = 600.dp
-    val density = LocalDensity.current
-    val windowSize = LocalWindowInfo.current.containerSize
-
-    return with(density) { windowSize.width.toDp() >= minWideScreenWidth }
-}
-
-@Composable
-private fun UpdatesFooter(
-    onLocalUpdateClick: () -> Unit,
-    onPreferencesClick: () -> Unit,
-) {
-    val localUpdateSummary = stringResource(R.string.local_update_import_summary)
-    val preferencesSummary = stringResource(R.string.preferences_summary)
-
-    Category {
-        Preference(object : PreferenceModel {
-            override val title = stringResource(R.string.local_update_import)
-            override val summary = { localUpdateSummary }
-            override val onClick = onLocalUpdateClick
-        })
-        Preference(object : PreferenceModel {
-            override val title = stringResource(R.string.menu_preferences)
-            override val summary = { preferencesSummary }
-            override val onClick = onPreferencesClick
-        })
-    }
-}
-
-@Composable
-private fun getTitleForUpdateStatus(updates: List<Update>): String = when {
+private fun getHeadline(
+    updates: List<Update>,
+    displayedCheckState: UpdatesCheckState,
+    isPreparing: Boolean,
+    hasUpdateItems: Boolean,
+): String = when {
     updates.any { it.status == UpdateStatus.UPDATED_NEED_REBOOT } ->
         stringResource(R.string.installing_update_finished)
 
     updates.any { it.status == UpdateStatus.INSTALLATION_FAILED } ->
         stringResource(R.string.installing_update_error)
 
-    updates.any {
-        it.status == UpdateStatus.INSTALLING ||
-                it.status == UpdateStatus.INSTALLATION_SUSPENDED
-    } -> stringResource(R.string.installing_update)
+    updates.any { it.status == UpdateStatus.INSTALLING } ->
+        stringResource(R.string.installing_update_title)
 
-    else -> stringResource(R.string.display_name)
+    isPreparing -> stringResource(R.string.preparing_update_title)
+
+    displayedCheckState is UpdatesCheckState.Checking ->
+        stringResource(R.string.checking_for_update_title)
+
+    displayedCheckState is UpdatesCheckState.NoInternet ||
+            displayedCheckState is UpdatesCheckState.Error ->
+        stringResource(R.string.updates_check_failed_title)
+
+    updates.any { it.status == UpdateStatus.DOWNLOADING } ->
+        stringResource(R.string.downloading_update_title)
+
+    updates.any { it.status == UpdateStatus.VERIFYING } ->
+        stringResource(R.string.verifying_update_title)
+
+    updates.any {
+        it.status == UpdateStatus.PAUSED ||
+                it.status == UpdateStatus.PAUSED_ERROR ||
+                it.status == UpdateStatus.INSTALLATION_SUSPENDED
+    } -> stringResource(R.string.update_paused_title)
+
+    hasUpdateItems -> stringResource(R.string.update_available_title)
+
+    else -> stringResource(R.string.system_up_to_date_title)
 }
