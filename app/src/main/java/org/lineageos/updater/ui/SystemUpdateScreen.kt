@@ -76,6 +76,7 @@ private val ButtonHeight = 56.dp
 fun SystemUpdateScreen(
     headline: String,
     supportingText: String?,
+    supportingTextIsError: Boolean = false,
     isBusy: Boolean,
     canCheckForUpdates: Boolean,
     showDeviceInfo: Boolean,
@@ -152,7 +153,11 @@ fun SystemUpdateScreen(
                     Text(
                         text = it,
                         style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = if (supportingTextIsError) {
+                            MaterialTheme.colorScheme.error
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        },
                         modifier = Modifier.padding(
                             start = HorizontalPadding,
                             top = 32.dp,
