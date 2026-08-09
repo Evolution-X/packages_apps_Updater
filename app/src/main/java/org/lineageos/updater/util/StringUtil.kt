@@ -62,6 +62,14 @@ object StringUtil {
     }
 
     @JvmStatic
+    fun formatSecurityPatchFullDate(context: Context, securityPatch: String): String {
+        val patchDate = LocalDate.parse(securityPatch)
+        return DateFormat.getInstanceForSkeleton("yMMMMd", getCurrentLocale(context))
+            .apply { timeZone = TimeZone.getTimeZone("UTC") }
+            .format(Date.from(patchDate.atStartOfDay(ZoneOffset.UTC).toInstant()))
+    }
+
+    @JvmStatic
     fun getCurrentLocale(context: Context): Locale? =
         context.resources.configuration.locales.getFirstMatch(context.resources.assets.locales)
 }
