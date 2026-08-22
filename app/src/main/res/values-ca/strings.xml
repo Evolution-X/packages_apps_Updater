@@ -36,7 +36,7 @@
         ]]></string>
     <string name="dialog_scratch_mounted_title">No es pot instal·lar l\'actualització amb l\'OverlayFS muntat</string>
     <string name="reboot">Reinicia</string>
-    <string name="menu_preferences">Preferències d\'actualització del sistema</string>
+    <string name="menu_preferences">Preferències</string>
     <string name="preferences_summary">Sincronitza, baixa i instal·la</string>
     <string name="check_for_updates">Cerca actualitzacions</string>
     <string name="checking_for_updates">S\'estan cercant actualitzacions</string>
