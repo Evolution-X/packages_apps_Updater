@@ -36,7 +36,7 @@
         ]]></string>
     <string name="dialog_scratch_mounted_title">OverlayFS taxılı ikən güncəlləmə quraşdırıla bilmir</string>
     <string name="reboot">Yenidən başlat</string>
-    <string name="menu_preferences">Sistem güncəlləməsi tərcihləri</string>
+    <string name="menu_preferences">Tərcihlər</string>
     <string name="preferences_summary">Sinxron et, endir və quraşdır</string>
     <string name="check_for_updates">Güncəlləmələri yoxla</string>
     <string name="checking_for_updates">Güncəlləmələr yoxlanılır</string>

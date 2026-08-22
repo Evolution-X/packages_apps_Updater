@@ -36,7 +36,7 @@
         ]]></string>
     <string name="dialog_scratch_mounted_title">Não é possível instalar a atualização com OverlayFS montado</string>
     <string name="reboot">Reiniciar</string>
-    <string name="menu_preferences">Preferências de atualização do sistema</string>
+    <string name="menu_preferences">Preferências</string>
     <string name="preferences_summary">Sincronizar, transferir e instalar</string>
     <string name="check_for_updates">Procurar atualizações</string>
     <string name="checking_for_updates">A procurar atualizações</string>

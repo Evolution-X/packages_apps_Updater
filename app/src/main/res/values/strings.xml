@@ -63,7 +63,7 @@
 
     <string name="reboot">Reboot</string>
 
-    <string name="menu_preferences">System update preferences</string>
+    <string name="menu_preferences">Preferences</string>
     <string name="preferences_summary">Sync, download and install</string>
 
     <!-- System update screen -->

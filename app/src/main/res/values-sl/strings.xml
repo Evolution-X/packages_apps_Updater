@@ -35,7 +35,7 @@
         ]]></string>
     <string name="dialog_scratch_mounted_title">Posodobitve ni mogoče namestiti s priklopljenim OverlayFS</string>
     <string name="reboot">Vnovično zaženi</string>
-    <string name="menu_preferences">Nastavitve sistemskih posodobitev</string>
+    <string name="menu_preferences">Nastavitve</string>
     <string name="preferences_summary">Sinhronizacija, prenos in namestitev</string>
     <string name="check_for_updates">Preveri za posodobitve</string>
     <string name="checking_for_updates">Preverjanje za posodobitve</string>

@@ -35,7 +35,7 @@
         ]]></string>
     <string name="dialog_scratch_mounted_title">Không thể cài đặt cập nhật khi OverlayFS được gắn kết</string>
     <string name="reboot">Khởi động lại</string>
-    <string name="menu_preferences">Tùy chọn cập nhật hệ thống</string>
+    <string name="menu_preferences">Tùy chọn</string>
     <string name="preferences_summary">Đồng bộ, tải về và cài đặt</string>
     <string name="check_for_updates">Kiểm tra cập nhật</string>
     <string name="checking_for_updates">Đang kiểm tra cập nhật</string>

@@ -29,7 +29,7 @@
     <string name="dialog_battery_low_title">Lítil hleðsla á rafhlöðu</string>
     <string name="dialog_battery_low_message_pct">Hleðslan á rafhlöðunni er of lítil, þú þarft a.m.k. <xliff:g id="percent_discharging">%1$d</xliff:g>%% hleðslu til að halda áfram, <xliff:g id="percent_charging">%2$d</xliff:g>%% ef í hleðslu.</string>
     <string name="reboot">Endurræsa</string>
-    <string name="menu_preferences">Kjörstillingar kerfisuppfærslna</string>
+    <string name="menu_preferences">Kjörstillingar</string>
     <string name="preferences_summary">Samstilla, sækja og setja upp</string>
     <string name="updates_check_failed">Athugun með uppfærslur mistókst. Prófaðu aftur síðar.</string>
     <string name="header_last_updates_check_time">Síðast athugað: <xliff:g id="time" example="01:23">%1$s</xliff:g></string>

@@ -35,7 +35,7 @@
         ]]></string>
     <string name="dialog_scratch_mounted_title">Ní féidir an nuashonrú a shuiteáil le OverlayFS suite</string>
     <string name="reboot">Atosaigh</string>
-    <string name="menu_preferences">Roghanna nuashonraithe córais</string>
+    <string name="menu_preferences">Roghanna</string>
     <string name="preferences_summary">Sioncrónaigh, íoslódáil agus suiteáil</string>
     <string name="check_for_updates">Seiceáil le haghaidh nuashonruithe</string>
     <string name="checking_for_updates">Ag seiceáil le haghaidh nuashonruithe</string>

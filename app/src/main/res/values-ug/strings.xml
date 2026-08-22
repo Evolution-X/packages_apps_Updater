@@ -36,7 +36,7 @@
         ]]></string>
     <string name="dialog_scratch_mounted_title">OverlayFS ئېگەرلەنگەندە يېڭىلاشنى ئورنىتالمايدۇ</string>
     <string name="reboot">قايتا قوزغات</string>
-    <string name="menu_preferences">سىستېما يېڭىلاش مايىللىقى</string>
+    <string name="menu_preferences">مايىللىق</string>
     <string name="preferences_summary">قەدەمداش، چۈشۈرۈش ۋە ئورنىتىش</string>
     <string name="check_for_updates">يېڭىلاشنى تەكشۈر</string>
     <string name="checking_for_updates">يېڭىلانمىنى تەكشۈرۈۋاتىدۇ</string>

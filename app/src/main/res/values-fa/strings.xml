@@ -36,7 +36,7 @@
         ]]></string>
     <string name="dialog_scratch_mounted_title">با نصب OverlayFS نمی توان به‌روز رسانی را نصب کرد</string>
     <string name="reboot">راه‌اندازی مجدد</string>
-    <string name="menu_preferences">تنظیمات برگزیده به‌روزرسانی سیستم</string>
+    <string name="menu_preferences">تنظیمات برگزیده</string>
     <string name="preferences_summary">همگام‌سازی، دانلود و نصب</string>
     <string name="check_for_updates">بررسی برای به‌روزرسانی</string>
     <string name="checking_for_updates">در حال بررسی نسخه به روز</string>
