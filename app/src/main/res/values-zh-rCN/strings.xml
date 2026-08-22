@@ -35,7 +35,7 @@
         ]]></string>
     <string name="dialog_scratch_mounted_title">无法在使用OverlayFS挂载的情况下安装更新</string>
     <string name="reboot">重新启动</string>
-    <string name="menu_preferences">系统更新首选项</string>
+    <string name="menu_preferences">偏好设置</string>
     <string name="preferences_summary">同步、下载和安装</string>
     <string name="check_for_updates">检查更新</string>
     <string name="checking_for_updates">正在检查更新</string>

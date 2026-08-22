@@ -35,7 +35,7 @@
         ]]></string>
     <string name="dialog_scratch_mounted_title">OverlayFS ஏற்றத்திலெனின் இற்றை நிறுவவியலாது</string>
     <string name="reboot">மறுதொடக்கம்</string>
-    <string name="menu_preferences">முறைமையிற்றை விருப்பம்</string>
+    <string name="menu_preferences">விருப்பங்கள்</string>
     <string name="preferences_summary">ஒத்திசைத்துப் பதிவிறக்கிநிறுவு</string>
     <string name="check_for_updates">இற்றை சரிபார்</string>
     <string name="checking_for_updates">இற்றை சரிபார்த்தல்</string>

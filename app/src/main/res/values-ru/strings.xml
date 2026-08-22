@@ -36,7 +36,7 @@
         ]]></string>
     <string name="dialog_scratch_mounted_title">Невозможно установить обновление при примонтированной OverlayFS</string>
     <string name="reboot">Перезапуск</string>
-    <string name="menu_preferences">Настройки обновления системы</string>
+    <string name="menu_preferences">Настройки</string>
     <string name="preferences_summary">Синхронизация, загрузка и установка</string>
     <string name="check_for_updates">Проверка обновлений</string>
     <string name="checking_for_updates">Проверка обновлений</string>

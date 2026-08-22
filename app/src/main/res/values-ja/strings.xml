@@ -36,7 +36,7 @@
         ]]></string>
     <string name="dialog_scratch_mounted_title">OverlayFS マウント済みの場合アップデートはインストールできません</string>
     <string name="reboot">再起動</string>
-    <string name="menu_preferences">システムアップデートの設定</string>
+    <string name="menu_preferences">設定</string>
     <string name="preferences_summary">同期、ダウンロード、インストール</string>
     <string name="check_for_updates">アップデートを確認</string>
     <string name="checking_for_updates">アップデートを確認中</string>
