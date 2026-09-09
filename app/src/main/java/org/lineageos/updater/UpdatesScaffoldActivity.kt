@@ -127,6 +127,12 @@ private fun UpdatesScaffoldContent(
         initial = true,
     )
 
+    // Room only keeps persistent statuses; use the controller's live ones.
+    val liveUpdates = remember(uiState.updates, updaterController, controllerStateVersion) {
+        val controller = updaterController ?: return@remember uiState.updates
+        uiState.updates.mapNotNull { controller.getUpdate(it.downloadId) }
+    }
+
     val updateItems = remember(
         uiState.updates,
         updaterController,
@@ -165,7 +171,7 @@ private fun UpdatesScaffoldContent(
     val model = uiState.updatesCheckModel
     val checkUiState = rememberUpdatesCheckUiState(model.state)
     val isChecking = checkUiState.displayedState is UpdatesCheckState.Checking
-    val isPreparing = uiState.updates.any { it.status == UpdateStatus.STARTING }
+    val isPreparing = liveUpdates.any { it.status == UpdateStatus.STARTING }
     val isBusy = isChecking || isPreparing
     val isIdleAndEmpty = updateItems.isEmpty() && !isBusy
 
@@ -173,7 +179,7 @@ private fun UpdatesScaffoldContent(
 
     SystemUpdateScreen(
         headline = getHeadline(
-            updates = uiState.updates,
+            updates = liveUpdates,
             displayedCheckState = checkUiState.displayedState,
             isPreparing = isPreparing,
             hasUpdateItems = updateItems.isNotEmpty(),
