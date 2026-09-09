@@ -28,6 +28,7 @@ import org.lineageos.updater.controller.UpdaterController
 import org.lineageos.updater.data.Update
 import org.lineageos.updater.data.UpdateStatus
 import org.lineageos.updater.preferences.PreferencesActivity
+import org.lineageos.updater.ui.common.ProgressDialog
 import org.lineageos.updater.ui.SystemUpdateScreen
 import org.lineageos.updater.updates.action.AlertDialogState
 import org.lineageos.updater.updates.action.UpdateActionDialog
@@ -40,6 +41,8 @@ abstract class UpdatesScaffoldActivity : ComponentActivity() {
     private val viewModel by viewModels<UpdatesViewModel>()
     private var activeUpdaterController: UpdaterController? by mutableStateOf(null)
     private var controllerStateVersion: Int by mutableIntStateOf(0)
+
+    protected var importDialogVisible: Boolean by mutableStateOf(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +78,12 @@ abstract class UpdatesScaffoldActivity : ComponentActivity() {
                         },
                         onControllerStateChanged = { notifyControllerStateChanged() },
                     )
+                    if (importDialogVisible) {
+                        ProgressDialog(
+                            title = stringResource(R.string.local_update_import),
+                            text = stringResource(R.string.local_update_import_progress),
+                        )
+                    }
                 }
             }
         }

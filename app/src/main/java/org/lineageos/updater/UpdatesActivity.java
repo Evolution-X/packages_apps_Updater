@@ -51,7 +51,6 @@ public class UpdatesActivity extends UpdatesScaffoldActivity implements UpdateIm
             });
 
     private UpdateImporter mUpdateImporter;
-    private AlertDialog importDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +97,8 @@ public class UpdatesActivity extends UpdatesScaffoldActivity implements UpdateIm
 
     @Override
     protected void onPause() {
-        if (importDialog != null) {
-            importDialog.dismiss();
-            importDialog = null;
+        if (getImportDialogVisible()) {
+            setImportDialogVisible(false);
             mUpdateImporter.stopImport();
         }
 
@@ -135,25 +133,12 @@ public class UpdatesActivity extends UpdatesScaffoldActivity implements UpdateIm
 
     @Override
     public void onImportStarted() {
-        if (importDialog != null && importDialog.isShowing()) {
-            importDialog.dismiss();
-        }
-
-        importDialog = new AlertDialog.Builder(this)
-                .setTitle(R.string.local_update_import)
-                .setView(R.layout.progress_dialog)
-                .setCancelable(false)
-                .create();
-
-        importDialog.show();
+        setImportDialogVisible(true);
     }
 
     @Override
     public void onImportCompleted(Update update) {
-        if (importDialog != null) {
-            importDialog.dismiss();
-            importDialog = null;
-        }
+        setImportDialogVisible(false);
 
         if (update == null) {
             new AlertDialog.Builder(this)
