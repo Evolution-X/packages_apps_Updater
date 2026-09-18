@@ -88,12 +88,18 @@ fun SystemUpdateScreen(
     updateItem: UpdateItemState? = null,
     onUpdateAction: (UpdateAction) -> Unit = {},
 ) {
+    // The bottom bar only offers a check while no update is displayed.
+    val showCheckButton = !isBusy && updateItem == null
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.surfaceContainer,
         topBar = {
             SystemUpdateTopBar(
                 onBackClick = onBackClick,
+                showCheckAction = !showCheckButton,
+                canCheckForUpdates = canCheckForUpdates,
+                onCheckClick = onCheckClick,
                 onLocalUpdateClick = onLocalUpdateClick,
                 onPreferencesClick = onPreferencesClick,
                 updateOverflowActions = updateItem?.actions?.overflow ?: emptyList(),
@@ -101,18 +107,16 @@ fun SystemUpdateScreen(
             )
         },
         bottomBar = {
-            if (!isBusy) {
-                if (updateItem != null) {
-                    UpdateActionButtons(
-                        item = updateItem,
-                        onAction = onUpdateAction,
-                    )
-                } else {
-                    CheckForUpdateButton(
-                        enabled = canCheckForUpdates,
-                        onClick = onCheckClick,
-                    )
-                }
+            if (showCheckButton) {
+                CheckForUpdateButton(
+                    enabled = canCheckForUpdates,
+                    onClick = onCheckClick,
+                )
+            } else if (!isBusy && updateItem != null) {
+                UpdateActionButtons(
+                    item = updateItem,
+                    onAction = onUpdateAction,
+                )
             }
         },
     ) { paddingValues ->
@@ -355,6 +359,9 @@ private fun ScreenHeader(headline: String) {
 @Composable
 private fun SystemUpdateTopBar(
     onBackClick: () -> Unit,
+    showCheckAction: Boolean,
+    canCheckForUpdates: Boolean,
+    onCheckClick: () -> Unit,
     onLocalUpdateClick: () -> Unit,
     onPreferencesClick: () -> Unit,
     updateOverflowActions: List<UpdateAction> = emptyList(),
@@ -409,6 +416,16 @@ private fun SystemUpdateTopBar(
                 expanded = menuExpanded,
                 onDismissRequest = { menuExpanded = false },
             ) {
+                if (showCheckAction) {
+                    DropdownMenuItem(
+                        text = { Text(stringResource(R.string.check_for_update)) },
+                        enabled = canCheckForUpdates,
+                        onClick = {
+                            menuExpanded = false
+                            onCheckClick()
+                        },
+                    )
+                }
                 DropdownMenuItem(
                     text = { Text(stringResource(R.string.local_update_import)) },
                     onClick = {
