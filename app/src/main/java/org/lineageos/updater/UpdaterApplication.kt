@@ -11,6 +11,7 @@ import com.android.settingslib.spa.framework.common.SpaEnvironment
 import com.android.settingslib.spa.framework.common.SpaEnvironmentFactory
 import kotlinx.coroutines.MainScope
 import org.lineageos.updater.data.AppStateRepository
+import org.lineageos.updater.data.ChangelogRepository
 import org.lineageos.updater.data.UpdatesRepository
 import org.lineageos.updater.data.UserPreferencesRepository
 import org.lineageos.updater.data.source.local.UpdatesDatabase
@@ -33,6 +34,7 @@ class UpdaterApplication : Application() {
     val networkMonitor by lazy { NetworkMonitor(applicationContext, coroutineScope) }
     val notificationHelper by lazy { NotificationHelper(applicationContext) }
     val appStateRepository by lazy { AppStateRepository(applicationContext) }
+    val changelogRepository by lazy { ChangelogRepository(applicationContext) }
     val userPreferencesRepository by lazy { UserPreferencesRepository(applicationContext) }
     val updatesRepository by lazy {
         UpdatesRepository(

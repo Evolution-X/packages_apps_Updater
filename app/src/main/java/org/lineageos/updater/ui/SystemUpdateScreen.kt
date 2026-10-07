@@ -58,6 +58,7 @@ import androidx.core.net.toUri
 import com.android.settingslib.spa.debug.UiModePreviews
 import com.android.settingslib.spa.framework.theme.SettingsTheme
 import org.lineageos.updater.R
+import org.lineageos.updater.data.ChangelogState
 import org.lineageos.updater.deviceinfo.DeviceInfoUtils
 import org.lineageos.updater.updates.action.UpdateAction
 import org.lineageos.updater.updates.action.UpdateActionType
@@ -86,6 +87,7 @@ fun SystemUpdateScreen(
     onPreferencesClick: () -> Unit,
     modifier: Modifier = Modifier,
     updateItem: UpdateItemState? = null,
+    changelogState: ChangelogState = ChangelogState.Idle,
     onUpdateAction: (UpdateAction) -> Unit = {},
 ) {
     // The bottom bar only offers a check while no update is displayed.
@@ -193,6 +195,7 @@ fun SystemUpdateScreen(
                 updateItem?.let { item ->
                     UpdateDetails(
                         item = item,
+                        changelogState = changelogState,
                         modifier = Modifier.padding(horizontal = HorizontalPadding),
                     )
                     Spacer(modifier = Modifier.height(24.dp))
@@ -205,6 +208,7 @@ fun SystemUpdateScreen(
 @Composable
 private fun UpdateDetails(
     item: UpdateItemState,
+    changelogState: ChangelogState,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -218,6 +222,35 @@ private fun UpdateDetails(
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(top = 32.dp),
         )
+
+        when (changelogState) {
+            ChangelogState.Idle -> Unit
+            ChangelogState.Loading -> Text(
+                text = stringResource(R.string.changelog_loading),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 12.dp),
+            )
+            ChangelogState.Error -> Text(
+                text = stringResource(R.string.changelog_failed),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(top = 12.dp),
+            )
+            is ChangelogState.Loaded -> if (changelogState.markdown.isEmpty()) {
+                Text(
+                    text = stringResource(R.string.changelog_empty),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 12.dp),
+                )
+            } else {
+                MarkdownText(
+                    markdown = changelogState.markdown,
+                    modifier = Modifier.padding(top = 12.dp),
+                )
+            }
+        }
 
         val showsInstallInfo = item.progress == null &&
                 item.actions.primary.type in setOf(
