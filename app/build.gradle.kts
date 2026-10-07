@@ -111,6 +111,8 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.okhttp)
+    implementation(files("libs/com/atlassian/commonmark/commonmark/0.13.0/commonmark-0.13.0.jar"))
+    implementation(files("libs/io/noties/markwon/core/4.6.2/core-4.6.2.aar"))
 
     annotationProcessor(libs.androidx.room.compiler)
 }
