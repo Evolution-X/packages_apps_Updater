@@ -25,6 +25,7 @@ import com.android.settingslib.spa.framework.compose.LocalNavController
 import com.android.settingslib.spa.framework.compose.NavControllerWrapper
 import com.android.settingslib.spa.framework.theme.SettingsTheme
 import org.lineageos.updater.controller.UpdaterController
+import org.lineageos.updater.data.ChangelogState
 import org.lineageos.updater.data.Update
 import org.lineageos.updater.data.UpdateStatus
 import org.lineageos.updater.preferences.PreferencesActivity
@@ -202,6 +203,11 @@ private fun UpdatesScaffoldContent(
         onLocalUpdateClick = onLocalUpdateClick,
         onPreferencesClick = onPreferencesClick,
         updateItem = if (isBusy) null else activeItem,
+        changelogState = if (activeItem?.downloadId == uiState.changelogUpdateId) {
+            uiState.changelogState
+        } else {
+            ChangelogState.Idle
+        },
         onUpdateAction = { action ->
             val item = activeItem
             val controller = updaterController

@@ -26,6 +26,10 @@
     -->
     <string name="updater_server_url" translatable="false">https://download.lineageos.org/api/v2/devices/{device}/builds</string>
 
+    <!-- Used to list the merged changes of an update. {device} is replaced with the device name. -->
+    <string name="changes_api_url" translatable="false">https://download.lineageos.org/api/v2/changes</string>
+    <string name="device_api_url" translatable="false">https://download.lineageos.org/api/v2/devices/{device}</string>
+
     <string name="verification_failed_notification">Verification failed</string>
     <string name="verifying_download_notification">Verifying update</string>
     <string name="downloading_notification">Downloading</string>
@@ -78,6 +82,10 @@
     <string name="action_download_install">Download and install</string>
     <string name="downloading_installing_caption">Downloading and installing update</string>
     <string name="metered_warning_footnote">Downloading updates over a mobile network or metered Wi-Fi may cause additional charges.</string>
+    <string name="changelog_loading">Loading recent changes…</string>
+    <string name="changelog_failed">Recent changes are temporarily unavailable.</string>
+    <string name="changelog_empty">No changelog was provided for this build.</string>
+    <string name="changelog_view_all">View all changes</string>
     <string name="updates_check_failed_title">Couldn\'t check for update</string>
     <string name="check_for_update">Check for update</string>
     <string name="header_last_check">Last successful check for update:</string>
