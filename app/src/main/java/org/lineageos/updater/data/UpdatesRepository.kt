@@ -16,6 +16,7 @@ import org.lineageos.updater.data.source.network.toUpdate
 import org.lineageos.updater.deviceinfo.DeviceInfoUtils
 import org.lineageos.updater.notifications.NotificationHelper
 import org.lineageos.updater.util.NetworkMonitor
+import org.lineageos.updater.util.SystemUpdateInfoPublisher
 import java.io.IOException
 
 private const val TAG = "UpdatesRepository"
@@ -25,6 +26,7 @@ class UpdatesRepository(
     private val notificationHelper: NotificationHelper,
     private val networkDataSource: UpdatesNetworkDataSource,
     private val localDataSource: UpdatesLocalDataSource,
+    private val systemUpdateInfoPublisher: SystemUpdateInfoPublisher,
 ) {
     fun observeLocalUpdates(): Flow<List<Update>> = localDataSource.observeUpdates()
 
@@ -57,7 +59,10 @@ class UpdatesRepository(
             networkDataSource.fetchUpdates().map { it.toUpdate() }.filter { filterUpdates(it) }
         }
 
-        if (networkUpdates.isEmpty()) return System.currentTimeMillis()
+        if (networkUpdates.isEmpty()) {
+            systemUpdateInfoPublisher.publish()
+            return System.currentTimeMillis()
+        }
 
         val networkIds = networkUpdates.map { it.downloadId }.toSet()
 
@@ -87,6 +92,7 @@ class UpdatesRepository(
                 localDataSource.removeUpdate(it.downloadId)
             }
         }
+        systemUpdateInfoPublisher.publish()
 
         return System.currentTimeMillis()
     }
