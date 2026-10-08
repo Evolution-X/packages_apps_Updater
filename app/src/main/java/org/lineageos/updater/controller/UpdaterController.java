@@ -19,6 +19,7 @@ import org.lineageos.updater.data.source.local.UpdatesLocalDataSource;
 import org.lineageos.updater.data.source.local.UpdatesDatabase;
 import org.lineageos.updater.download.DownloadClient;
 import org.lineageos.updater.misc.Utils;
+import org.lineageos.updater.util.SystemUpdateInfoPublisher;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +46,7 @@ public class UpdaterController {
 
     private final Context mContext;
     private final UpdatesLocalDataSource mUpdatesLocalDataSource;
+    private final SystemUpdateInfoPublisher mSystemUpdateInfoPublisher;
 
     private final PowerManager.WakeLock mWakeLock;
 
@@ -55,17 +57,23 @@ public class UpdaterController {
 
     public static synchronized UpdaterController getInstance(Context context) {
         if (sUpdaterController == null) {
-            UserPreferencesRepository userPreferencesRepository =
-                    ((UpdaterApplication) context.getApplicationContext())
-                            .getUserPreferencesRepository();
-            sUpdaterController = new UpdaterController(context, userPreferencesRepository);
+            UpdaterApplication application = (UpdaterApplication) context.getApplicationContext();
+            sUpdaterController = new UpdaterController(context,
+                    application.getUserPreferencesRepository(),
+                    application.getSystemUpdateInfoPublisher());
         }
         return sUpdaterController;
     }
 
-    private UpdaterController(Context context, UserPreferencesRepository userPreferencesRepository) {
+    public static synchronized UpdaterController peekInstance() {
+        return sUpdaterController;
+    }
+
+    private UpdaterController(Context context, UserPreferencesRepository userPreferencesRepository,
+            SystemUpdateInfoPublisher systemUpdateInfoPublisher) {
         mUpdatesLocalDataSource =
                 new UpdatesLocalDataSource(UpdatesDatabase.getInstance(context).updateDao());
+        mSystemUpdateInfoPublisher = systemUpdateInfoPublisher;
         mDownloadRoot = Utils.getDownloadPath(context);
         PowerManager powerManager = context.getSystemService(PowerManager.class);
         mWakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Updater:wakelock");
@@ -77,6 +85,7 @@ public class UpdaterController {
             for (Update update : mUpdatesLocalDataSource.getUpdates()) {
                 addUpdate(update, false);
             }
+            mSystemUpdateInfoPublisher.publish();
         }).start();
     }
 
@@ -96,6 +105,7 @@ public class UpdaterController {
         intent.setPackage(mContext.getPackageName());
         intent.putExtra(EXTRA_DOWNLOAD_ID, downloadId);
         mContext.sendBroadcast(intent);
+        mSystemUpdateInfoPublisher.publish();
     }
 
     void notifyUpdateDelete(String downloadId) {
@@ -104,6 +114,7 @@ public class UpdaterController {
         intent.setPackage(mContext.getPackageName());
         intent.putExtra(EXTRA_DOWNLOAD_ID, downloadId);
         mContext.sendBroadcast(intent);
+        mSystemUpdateInfoPublisher.publish();
     }
 
     void notifyDownloadProgress(String downloadId) {

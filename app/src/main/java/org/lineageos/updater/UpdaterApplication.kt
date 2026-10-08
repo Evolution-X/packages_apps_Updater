@@ -20,6 +20,7 @@ import org.lineageos.updater.data.source.network.UpdatesNetworkDataSource
 import org.lineageos.updater.notifications.NotificationHelper
 import org.lineageos.updater.util.BatteryMonitor
 import org.lineageos.updater.util.NetworkMonitor
+import org.lineageos.updater.util.SystemUpdateInfoPublisher
 
 class UpdaterApplication : Application() {
     private val coroutineScope = MainScope()
@@ -36,12 +37,16 @@ class UpdaterApplication : Application() {
     val appStateRepository by lazy { AppStateRepository(applicationContext) }
     val changelogRepository by lazy { ChangelogRepository(applicationContext) }
     val userPreferencesRepository by lazy { UserPreferencesRepository(applicationContext) }
+    val systemUpdateInfoPublisher by lazy {
+        SystemUpdateInfoPublisher(applicationContext, localDataSource)
+    }
     val updatesRepository by lazy {
         UpdatesRepository(
             networkMonitor = networkMonitor,
             notificationHelper = notificationHelper,
             networkDataSource = networkDataSource,
             localDataSource = localDataSource,
+            systemUpdateInfoPublisher = systemUpdateInfoPublisher,
         )
     }
 
