@@ -42,6 +42,8 @@ public class UpdaterReceiver extends BroadcastReceiver {
         } else if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             Utils.removeUncryptFiles(Utils.getDownloadPath(context));
             UpdatesCheckWorker.schedulePeriodicCheck(context);
+            ((UpdaterApplication) context.getApplicationContext()).getSystemUpdateInfoPublisher()
+                    .publish();
 
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
             String downloadId = pref.getString(Constants.PREF_NEEDS_REBOOT_ID, null);
