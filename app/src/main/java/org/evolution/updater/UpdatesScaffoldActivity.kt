@@ -127,6 +127,12 @@ private fun UpdatesScaffoldContent(
     val streamUpdatesEnabled by userPreferencesRepository.streamUpdatesFlow.collectAsState(
         initial = true,
     )
+    val showLogo by userPreferencesRepository.showLogoFlow.collectAsState(
+        initial = true,
+    )
+    val showUpdaterIcon by userPreferencesRepository.showUpdaterIconFlow.collectAsState(
+        initial = false,
+    )
 
     // Room only keeps persistent statuses; use the controller's live ones.
     val liveUpdates = remember(uiState.updates, updaterController, controllerStateVersion) {
@@ -197,6 +203,8 @@ private fun UpdatesScaffoldContent(
         isBusy = isBusy,
         canCheckForUpdates = model.canCheckForUpdates,
         showDeviceInfo = isIdleAndEmpty,
+        showLogo = showLogo,
+        showUpdaterIcon = showUpdaterIcon,
         lastCheckedTimestamp = if (isIdleAndEmpty) model.lastCheckedTimestamp else 0L,
         onBackClick = onBackClick,
         onCheckClick = onRefreshClick,

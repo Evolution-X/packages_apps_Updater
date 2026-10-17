@@ -63,6 +63,8 @@ private fun PreferencesContent(
         true
     )
     val periodicCheckEnabled by repository.periodicCheckEnabledFlow.collectAsStateWithLifecycle(true)
+    val showLogo by repository.showLogoFlow.collectAsStateWithLifecycle(true)
+    val showUpdaterIcon by repository.showUpdaterIconFlow.collectAsStateWithLifecycle(false)
     var recoveryUpdateEnabled by remember { mutableStateOf(repository.getRecoveryUpdateEnabled()) }
 
     val autoUpdatesCheckSummary = stringResource(R.string.menu_auto_updates_check_summary)
@@ -72,6 +74,8 @@ private fun PreferencesContent(
     val abPerfModeSummary = stringResource(R.string.menu_ab_perf_mode_summary)
     val abPerfModeChargingSummary = stringResource(R.string.menu_ab_perf_mode_summary_charging)
     val updateRecoverySummary = stringResource(R.string.menu_update_recovery_summary)
+    val showLogoSummary = stringResource(R.string.menu_show_logo_summary)
+    val showUpdaterIconSummary = stringResource(R.string.menu_show_updater_icon_summary)
     val selectedCheckInterval = remember(checkInterval) {
         object : IntState {
             override val intValue = checkInterval.ordinal
@@ -172,6 +176,25 @@ private fun PreferencesContent(
                 }
             })
         }
+    }
+
+    Category(title = stringResource(R.string.pref_category_appearance)) {
+        SwitchPreference(object : SwitchPreferenceModel {
+            override val title = stringResource(R.string.menu_show_logo)
+            override val summary = { showLogoSummary }
+            override val checked = { showLogo }
+            override val onCheckedChange: (Boolean) -> Unit = { value ->
+                coroutineScope.launch { repository.setShowLogo(value) }
+            }
+        })
+        SwitchPreference(object : SwitchPreferenceModel {
+            override val title = stringResource(R.string.menu_show_updater_icon)
+            override val summary = { showUpdaterIconSummary }
+            override val checked = { showUpdaterIcon }
+            override val onCheckedChange: (Boolean) -> Unit = { value ->
+                coroutineScope.launch { repository.setShowUpdaterIcon(value) }
+            }
+        })
     }
 }
 
