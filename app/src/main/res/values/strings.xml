@@ -83,7 +83,6 @@
     <string name="updates_check_failed_title">Couldn\'t check for update</string>
     <string name="check_for_update">Check for update</string>
     <string name="header_last_check">Last successful check for update:</string>
-    <string name="header_lineage_version">Evolution X version: <xliff:g id="version" example="23.2">%1$s</xliff:g></string>
     <string name="header_android_version_full">Android version: <xliff:g id="version" example="16">%1$s</xliff:g></string>
     <string name="header_security_update_full">Android security update: <xliff:g id="date" example="5 July 2026">%1$s</xliff:g></string>
     <string name="action_back">Back</string>

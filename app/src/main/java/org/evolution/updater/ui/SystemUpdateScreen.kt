@@ -583,7 +583,6 @@ private fun DeviceInfoText(
     }
 
     Column(modifier = modifier) {
-        InfoLine(stringResource(R.string.header_lineage_version, DeviceInfoUtils.buildVersion))
         InfoLine(stringResource(R.string.header_android_version_full, DeviceInfoUtils.androidVersion))
         InfoLine(stringResource(R.string.header_security_update_full, securityPatch))
         maintainer?.let { InfoLine(stringResource(R.string.maintainer_name, it)) }
