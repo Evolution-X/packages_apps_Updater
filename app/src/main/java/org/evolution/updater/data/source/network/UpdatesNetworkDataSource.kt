@@ -22,10 +22,7 @@ class UpdatesNetworkDataSource(private val context: Context) {
             require(base.startsWith("https://")) {
                 "Update server URL must use HTTPS: $base"
             }
-            return base
-                .replace("{device}", DeviceInfoUtils.device)
-                .replace("{type}", DeviceInfoUtils.releaseType.lowercase())
-                .replace("{incr}", DeviceInfoUtils.buildVersionIncremental)
+            return base.replace("{device}", DeviceInfoUtils.device)
         }
 
     private val client = OkHttpClient.Builder()
@@ -46,6 +43,6 @@ class UpdatesNetworkDataSource(private val context: Context) {
             response.body?.string() ?: throw IOException("Empty response body")
         }
 
-        return Json.decodeFromString<List<NetworkUpdate>>(responseBody)
+        return Json.decodeFromString<NetworkUpdates>(responseBody).response
     }
 }
