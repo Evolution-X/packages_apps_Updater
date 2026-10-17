@@ -14,37 +14,31 @@ The app sends `GET` requests to the URL defined by the `updater_server_url`
 resource (or the `evolution.updater.uri` system property) and expects as response
 a JSON with the following structure:
 ```json
-[
-  {
-    "datetime": 1781858358,
-    "files": [
-      {
-        "filename": "ota-package.zip",
-        "os_patch_level": "2026-06-01",
-        "os_sdk_level": 36,
-        "ota_property_files": "payload_metadata.bin:4662:187245,payload.bin:4662:1926274191,payload_properties.txt:1926278911:156,apex_info.pb:2220:1279,care_map.pb:3546:1069,metadata:69:683,metadata.pb:820:1352                        ",
-        "sha256": "11468fc263696b8bc0afd35861c35d62a562ba29722447a3972c39f0023deb7f",
-        "size": 1926282058,
-        "url": "https://example.com/full/ota-package.zip"
-      }
-    ],
-    "type": "nightly",
-    "version": "23.2"
-  }
-]
-
+{
+  "response": [
+    {
+      "buildtype": "user",
+      "download": "https://example.com/EvolutionX-17.0-20261010-marble-12.3-Official.zip",
+      "filename": "EvolutionX-17.0-20261010-marble-12.3-Official.zip",
+      "sha256": "fd2e25df5a8f49a87e82ca052f99ffac5187b145c1867ad0c02f500b575eedaf",
+      "size": 3624880471,
+      "timestamp": 1791622433,
+      "version": "12.3"
+    }
+  ]
+}
 ```
 
-The `datetime` attribute is the build date expressed as UNIX timestamp.  
-The `files[0].filename` attribute is the name of the file to be downloaded.  
-The `files[0].os_patch_level` optional attribute is the security patch level of the OTA update.  
-The `files[0].os_sdk_level` optional attribute is the SDK level of the OTA update.  
-The `files[0].ota_property_files` optional attribute is the `ota-property-files` value from `META-INF/com/android/metadata` of the OTA update.  
-The `files[0].sha256` attribute is a sha256 of the OTA update.  
-The `files[0].size` attribute is the size of the update expressed in bytes.  
-The `files[0].url` attribute is the URL of the file to be downloaded.  
-The `type` attribute is the string to be compared with the `ro.lineage.releasetype` property.  
-The `version` attribute is the string to be compared with the `ro.lineage.build.version` property.  
+The `buildtype` optional attribute is the build type of the OTA update.  
+The `download` attribute is the URL of the file to be downloaded.  
+The `filename` attribute is the name of the file to be downloaded.  
+The `os_patch_level` optional attribute is the security patch level of the OTA update.  
+The `os_sdk_level` optional attribute is the SDK level of the OTA update. It defaults to the running one.  
+The `ota_property_files` optional attribute is the `ota-property-files` value from `META-INF/com/android/metadata` of the OTA update.  
+The `sha256` attribute is a sha256 of the OTA update.  
+The `size` attribute is the size of the update expressed in bytes.  
+The `timestamp` attribute is the build date expressed as UNIX timestamp.  
+The `version` attribute is the Evolution X version of the OTA update.  
 
 Additional attributes are ignored.
 
