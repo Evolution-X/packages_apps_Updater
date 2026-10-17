@@ -11,6 +11,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonIgnoreUnknownKeys
+import org.evolution.updater.data.SupportInfo
 import org.evolution.updater.data.Update
 import org.evolution.updater.deviceinfo.DeviceInfoUtils
 import org.evolution.updater.misc.Constants
@@ -33,11 +34,15 @@ data class NetworkUpdate(
     // @SerialName("device") val device: String,
     @SerialName("download") val download: String,
     @SerialName("filename") val filename: String,
+    @SerialName("firmware") val firmware: String? = null,
+    @SerialName("forum") val forum: String? = null,
+    @SerialName("maintainer") val maintainer: String? = null,
     // @SerialName("md5") val md5: String,
     // @SerialName("oem") val oem: String,
     @SerialName("os_patch_level") val osPatchLevel: String? = null,
     @SerialName("os_sdk_level") val osSdkLevel: Int? = null,
     @SerialName("ota_property_files") val otaPropertyFiles: String? = null,
+    @SerialName("paypal") val paypal: String? = null,
     @SerialName("sha256") val sha256: String,
     @SerialName("size") val size: Long,
     @SerialName("timestamp") val timestamp: Long,
@@ -85,3 +90,10 @@ fun NetworkUpdate.toUpdate(): Update {
         isAvailableOnline = true,
     )
 }
+
+fun NetworkUpdate.toSupportInfo() = SupportInfo(
+    maintainer = maintainer?.takeIf { it.isNotBlank() },
+    forum = forum?.takeIf { it.isNotBlank() },
+    firmware = firmware?.takeIf { it.isNotBlank() },
+    paypal = paypal?.takeIf { it.isNotBlank() },
+)

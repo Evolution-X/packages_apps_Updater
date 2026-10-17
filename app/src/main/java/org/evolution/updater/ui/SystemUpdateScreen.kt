@@ -61,6 +61,7 @@ import com.android.settingslib.spa.debug.UiModePreviews
 import com.android.settingslib.spa.framework.theme.SettingsTheme
 import org.evolution.updater.R
 import org.evolution.updater.data.ChangelogState
+import org.evolution.updater.data.SupportInfo
 import org.evolution.updater.deviceinfo.DeviceInfoUtils
 import org.evolution.updater.updates.action.UpdateAction
 import org.evolution.updater.updates.action.UpdateActionType
@@ -89,6 +90,7 @@ fun SystemUpdateScreen(
     onPreferencesClick: () -> Unit,
     modifier: Modifier = Modifier,
     updateItem: UpdateItemState? = null,
+    supportInfo: SupportInfo = SupportInfo(),
     changelogState: ChangelogState = ChangelogState.Idle,
     onUpdateAction: (UpdateAction) -> Unit = {},
 ) {
@@ -106,6 +108,7 @@ fun SystemUpdateScreen(
                 onCheckClick = onCheckClick,
                 onLocalUpdateClick = onLocalUpdateClick,
                 onPreferencesClick = onPreferencesClick,
+                supportInfo = supportInfo,
                 updateOverflowActions = updateItem?.actions?.overflow ?: emptyList(),
                 onUpdateAction = onUpdateAction,
             )
@@ -175,6 +178,7 @@ fun SystemUpdateScreen(
 
                 if (showDeviceInfo) {
                     DeviceInfoText(
+                        maintainer = supportInfo.maintainer,
                         modifier = Modifier.padding(
                             start = HorizontalPadding,
                             top = 32.dp,
@@ -399,6 +403,7 @@ private fun SystemUpdateTopBar(
     onCheckClick: () -> Unit,
     onLocalUpdateClick: () -> Unit,
     onPreferencesClick: () -> Unit,
+    supportInfo: SupportInfo = SupportInfo(),
     updateOverflowActions: List<UpdateAction> = emptyList(),
     onUpdateAction: (UpdateAction) -> Unit = {},
 ) {
@@ -483,6 +488,20 @@ private fun SystemUpdateTopBar(
                         context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                     },
                 )
+                listOf(
+                    R.string.support_forum to supportInfo.forum,
+                    R.string.support_firmware to supportInfo.firmware,
+                    R.string.support_donate to supportInfo.paypal,
+                ).forEach { (titleRes, url) ->
+                    if (url == null) return@forEach
+                    DropdownMenuItem(
+                        text = { Text(stringResource(titleRes)) },
+                        onClick = {
+                            menuExpanded = false
+                            context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+                        },
+                    )
+                }
                 updateOverflowActions.forEach { action ->
                     DropdownMenuItem(
                         text = { Text(action.type.title(context)) },
@@ -528,7 +547,10 @@ private fun CheckForUpdateButton(
 }
 
 @Composable
-private fun DeviceInfoText(modifier: Modifier = Modifier) {
+private fun DeviceInfoText(
+    maintainer: String?,
+    modifier: Modifier = Modifier,
+) {
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
     val locale = remember(context, configuration.locales) { StringUtil.getCurrentLocale(context) }
@@ -549,6 +571,7 @@ private fun DeviceInfoText(modifier: Modifier = Modifier) {
         InfoLine(stringResource(R.string.header_lineage_version, DeviceInfoUtils.buildVersion))
         InfoLine(stringResource(R.string.header_android_version_full, DeviceInfoUtils.androidVersion))
         InfoLine(stringResource(R.string.header_security_update_full, securityPatch))
+        maintainer?.let { InfoLine(stringResource(R.string.maintainer_name, it)) }
     }
 }
 

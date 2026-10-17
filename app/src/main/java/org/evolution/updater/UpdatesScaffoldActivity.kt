@@ -203,6 +203,7 @@ private fun UpdatesScaffoldContent(
         onLocalUpdateClick = onLocalUpdateClick,
         onPreferencesClick = onPreferencesClick,
         updateItem = if (isBusy) null else activeItem,
+        supportInfo = uiState.supportInfo,
         changelogState = if (activeItem?.downloadId == uiState.changelogUpdateId) {
             uiState.changelogState
         } else {

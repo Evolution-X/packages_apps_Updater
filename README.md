@@ -20,6 +20,10 @@ a JSON with the following structure:
       "buildtype": "user",
       "download": "https://example.com/EvolutionX-17.0-20261010-marble-12.3-Official.zip",
       "filename": "EvolutionX-17.0-20261010-marble-12.3-Official.zip",
+      "firmware": "https://example.com/firmware/marble",
+      "forum": "https://example.com/forum/marble",
+      "maintainer": "Name",
+      "paypal": "https://example.com/donate",
       "sha256": "fd2e25df5a8f49a87e82ca052f99ffac5187b145c1867ad0c02f500b575eedaf",
       "size": 3624880471,
       "timestamp": 1791622433,
@@ -32,9 +36,13 @@ a JSON with the following structure:
 The `buildtype` optional attribute is the build type of the OTA update.  
 The `download` attribute is the URL of the file to be downloaded.  
 The `filename` attribute is the name of the file to be downloaded.  
+The `firmware` optional attribute is a link to the firmware for the device.  
+The `forum` optional attribute is a link to the support thread for the device.  
+The `maintainer` optional attribute is the name of the device maintainer.  
 The `os_patch_level` optional attribute is the security patch level of the OTA update.  
 The `os_sdk_level` optional attribute is the SDK level of the OTA update. It defaults to the running one.  
 The `ota_property_files` optional attribute is the `ota-property-files` value from `META-INF/com/android/metadata` of the OTA update.  
+The `paypal` optional attribute is a donation link for the device maintainer.  
 The `sha256` attribute is a sha256 of the OTA update.  
 The `size` attribute is the size of the update expressed in bytes.  
 The `timestamp` attribute is the build date expressed as UNIX timestamp.  
