@@ -80,8 +80,8 @@
     <string name="found_bug">发现问题？请使用我们的漏洞报告指南进行报告：</string>
     <string name="updates_zero_state_title">暂无可用更新</string>
     <string name="updates_zero_state_description">此设备的新版本将在可用时在此处显示。</string>
-    <string name="list_build_version">LineageOS <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
-    <string name="list_build_version_date">LineageOS <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
+    <string name="list_build_version">Evolution X <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
+    <string name="list_build_version_date">Evolution X <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
     <string name="list_update_size">更新大小：<xliff:g id="size" example="1.34 GB">%1$s</xliff:g></string>
     <string name="list_security_update">安全更新：<xliff:g id="date" example="Jan 2026">%1$s</xliff:g></string>
     <string name="list_major_android_upgrade">重大 Android 升级</string>

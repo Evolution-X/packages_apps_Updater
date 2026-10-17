@@ -80,8 +80,8 @@
     <string name="found_bug">کێشەت دۆزیوەتەوە؟ بەپێی ڕێبەری ڕاپۆرتکردنی کێشەکان ڕاپۆرتی بکە:</string>
     <string name="updates_zero_state_title">هیچ نوێکارییەک بەردەست نییە</string>
     <string name="updates_zero_state_description">وەشانە نوێیەکان بۆ ئەم ئامێرە لێرە دەردەکەون کاتێک بەردەست دەبن.</string>
-    <string name="list_build_version">LineageOS %1$s</string>
-    <string name="list_build_version_date">LineageOS %1$s - %2$s</string>
+    <string name="list_build_version">Evolution X %1$s</string>
+    <string name="list_build_version_date">Evolution X %1$s - %2$s</string>
     <string name="list_update_size">قەبارەی نوێکاری: <xliff:g id="size" example="1.34 GB">%1$s</xliff:g></string>
     <string name="list_security_update">نوێکاریی ئاسایش: <xliff:g id="date" example="Jan 2026">%1$s</xliff:g></string>
     <string name="list_major_android_upgrade">نوێکاریی سەرەکیی ئەندرۆید</string>

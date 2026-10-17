@@ -81,8 +81,8 @@
     <string name="found_bug">バグを見つけましたか？バグレポートガイドの通りに報告してください：</string>
     <string name="updates_zero_state_title">アップデートはありません</string>
     <string name="updates_zero_state_description">利用可能な場合、このデバイスの新しいビルドがここに表示されます。</string>
-    <string name="list_build_version">LineageOS <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
-    <string name="list_build_version_date">LineageOS <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
+    <string name="list_build_version">Evolution X <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
+    <string name="list_build_version_date">Evolution X <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
     <string name="list_update_size">アップデートのサイズ: <xliff:g id="size" example="1.34 GB">%1$s</xliff:g></string>
     <string name="list_security_update">セキュリティアップデート: <xliff:g id="date" example="Jan 2026">%1$s</xliff:g></string>
     <string name="list_major_android_upgrade">メジャー Android アップグレード</string>

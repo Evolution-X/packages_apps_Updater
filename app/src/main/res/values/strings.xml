@@ -12,11 +12,11 @@
 
     <!-- Directory where the update files will be downloaded and stored.
          WARNING: The application can and will delete any unknown file. -->
-    <string name="download_path" translatable="false">/data/lineageos_updates/</string>
+    <string name="download_path" translatable="false">/data/evolution_updates/</string>
 
     <!-- Directory where the downloads will be exported to.
          The path is relative to the root of the external storage.-->
-    <string name="export_path" translatable="false">LineageOS updates/</string>
+    <string name="export_path" translatable="false">Evolution X updates/</string>
 
     <!--
         Optional placeholders replaced at runtime:
@@ -89,7 +89,7 @@
     <string name="updates_check_failed_title">Couldn\'t check for update</string>
     <string name="check_for_update">Check for update</string>
     <string name="header_last_check">Last successful check for update:</string>
-    <string name="header_lineage_version">LineageOS version: <xliff:g id="version" example="23.2">%1$s</xliff:g></string>
+    <string name="header_lineage_version">Evolution X version: <xliff:g id="version" example="23.2">%1$s</xliff:g></string>
     <string name="header_android_version_full">Android version: <xliff:g id="version" example="16">%1$s</xliff:g></string>
     <string name="header_security_update_full">Android security update: <xliff:g id="date" example="5 July 2026">%1$s</xliff:g></string>
     <string name="action_back">Back</string>
@@ -141,8 +141,8 @@
     <string name="header_android_version">Android <xliff:g id="version" example="16">%1$s</xliff:g></string>
 
     <!-- Banner -->
-    <string name="brand_name" translatable="false">LineageOS</string>
-    <string name="header_build_version" translatable="false">LineageOS <xliff:g id="version" example="23.2">%1$s</xliff:g></string>
+    <string name="brand_name" translatable="false">Evolution X</string>
+    <string name="header_build_version" translatable="false">Evolution X <xliff:g id="version" example="23.2">%1$s</xliff:g></string>
     <string name="build_date">Build date</string>
     <string name="security_update">Security update</string>
     <string name="report_issues">Report issues</string>
@@ -154,8 +154,8 @@
     <string name="updates_zero_state_title">No updates available</string>
     <string name="updates_zero_state_description">New builds for this device will appear here when available.</string>
 
-    <string name="list_build_version">LineageOS <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
-    <string name="list_build_version_date">LineageOS <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
+    <string name="list_build_version">Evolution X <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
+    <string name="list_build_version_date">Evolution X <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
     <string name="list_update_size">Update size: <xliff:g id="size" example="1.34 GB">%1$s</xliff:g></string>
     <string name="list_security_update">Security update: <xliff:g id="date" example="Jan 2026">%1$s</xliff:g></string>
     <string name="list_major_android_upgrade">Major Android upgrade</string>
