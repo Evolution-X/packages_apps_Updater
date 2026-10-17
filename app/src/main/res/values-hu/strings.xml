@@ -81,8 +81,8 @@ illetve, ha éppen tölt, akkor még <xliff:g id="percent_charging">%2$d</xliff:
     <string name="found_bug">Hibát talált? Kövesse a hibabejelentési útmutatót:</string>
     <string name="updates_zero_state_title">Nincs elérhető frissítés</string>
     <string name="updates_zero_state_description">A készülékhez készülő új kiadások itt fognak megjelenni, amikor elérhetővé válnak.</string>
-    <string name="list_build_version">LineageOS <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
-    <string name="list_build_version_date">LineageOS <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
+    <string name="list_build_version">Evolution X <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
+    <string name="list_build_version_date">Evolution X <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
     <string name="list_update_size">Frissítés mérete: <xliff:g id="size" example="1.34 GB">%1$s</xliff:g></string>
     <string name="list_security_update">Biztonsági frissítés: <xliff:g id="date" example="Jan 2026">%1$s</xliff:g></string>
     <string name="list_major_android_upgrade">Fő Android-frissítés</string>
