@@ -12,6 +12,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonIgnoreUnknownKeys
 import org.evolution.updater.data.Update
+import org.evolution.updater.deviceinfo.DeviceInfoUtils
 import org.evolution.updater.misc.Constants
 
 // Commented out fields below are available in production, but not needed in runtime.
@@ -20,30 +21,27 @@ import org.evolution.updater.misc.Constants
 @Suppress("PROVIDED_RUNTIME_TOO_LOW")
 @Serializable
 @JsonIgnoreUnknownKeys
-data class NetworkUpdate(
-    // @SerialName("date") val date: String,
-    @SerialName("datetime") val datetime: Long,
-    @SerialName("files") val files: List<NetworkUpdateFile>,
-    @SerialName("type") val type: String,
-    @SerialName("version") val version: String,
+data class NetworkUpdates(
+    @SerialName("response") val response: List<NetworkUpdate>,
 )
 
 @Suppress("PROVIDED_RUNTIME_TOO_LOW")
 @Serializable
 @JsonIgnoreUnknownKeys
-data class NetworkUpdateFile(
-    // @SerialName("date") val date: String? = null,
-    // @SerialName("datetime") val datetime: Long? = null,
+data class NetworkUpdate(
+    @SerialName("buildtype") val buildType: String? = null,
+    // @SerialName("device") val device: String,
+    @SerialName("download") val download: String,
     @SerialName("filename") val filename: String,
-    // @SerialName("filepath") val filepath: String,
+    // @SerialName("md5") val md5: String,
+    // @SerialName("oem") val oem: String,
     @SerialName("os_patch_level") val osPatchLevel: String? = null,
     @SerialName("os_sdk_level") val osSdkLevel: Int? = null,
     @SerialName("ota_property_files") val otaPropertyFiles: String? = null,
-    // @SerialName("sha1") val sha1: String,
     @SerialName("sha256") val sha256: String,
     @SerialName("size") val size: Long,
-    // @SerialName("type") val type: String? = null,
-    @SerialName("url") val url: String,
+    @SerialName("timestamp") val timestamp: Long,
+    @SerialName("version") val version: String,
 )
 
 private data class PackageFileRange(
@@ -61,22 +59,23 @@ private fun String.parsePackageFileRanges() =
     }
 
 fun NetworkUpdate.toUpdate(): Update {
-    val file = files[0]
-    val packageFileRanges = file.otaPropertyFiles?.parsePackageFileRanges().orEmpty()
+    val packageFileRanges = otaPropertyFiles?.parsePackageFileRanges().orEmpty()
     val payloadMetadataRange = packageFileRanges[Constants.AB_PAYLOAD_METADATA_PATH]
     val payloadRange = packageFileRanges[Constants.AB_PAYLOAD_BIN_PATH]
     val payloadPropertiesRange = packageFileRanges[Constants.AB_PAYLOAD_PROPERTIES_PATH]
 
     return Update(
-        downloadId = file.sha256,
-        name = file.filename,
-        timestamp = datetime,
-        type = type,
-        fileSize = file.size,
-        downloadUrl = file.url,
+        downloadId = sha256,
+        name = filename,
+        timestamp = timestamp,
+        type = buildType,
+        fileSize = size,
+        downloadUrl = download,
         version = version,
-        osPatchLevel = file.osPatchLevel,
-        osSdkLevel = file.osSdkLevel ?: 0,
+        osPatchLevel = osPatchLevel,
+        // Evolution X builds don't advertise their SDK level; assume the running one so they
+        // aren't treated as Android downgrades.
+        osSdkLevel = osSdkLevel ?: DeviceInfoUtils.sdkLevel,
         payloadMetadataOffset = payloadMetadataRange?.offset,
         payloadMetadataSize = payloadMetadataRange?.size,
         payloadOffset = payloadRange?.offset,
