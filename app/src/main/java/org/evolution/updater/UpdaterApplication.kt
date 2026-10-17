@@ -47,6 +47,7 @@ class UpdaterApplication : Application() {
             networkDataSource = networkDataSource,
             localDataSource = localDataSource,
             systemUpdateInfoPublisher = systemUpdateInfoPublisher,
+            appStateRepository = appStateRepository,
         )
     }
 

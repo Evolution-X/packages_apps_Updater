@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.evolution.updater.data.ChangelogState
+import org.evolution.updater.data.SupportInfo
 import org.evolution.updater.data.Update
 import org.evolution.updater.updatescheck.UpdatesCheckModel
 import org.evolution.updater.updatescheck.UpdatesCheckState
@@ -37,6 +38,7 @@ class UpdatesViewModel(
         val hasUpdateCheckFailed: Boolean = false,
         val changelogState: ChangelogState = ChangelogState.Idle,
         val changelogUpdateId: String? = null,
+        val supportInfo: SupportInfo = SupportInfo(),
     ) {
         val updatesCheckModel = UpdatesCheckModel(
             state = when {
@@ -65,6 +67,12 @@ class UpdatesViewModel(
         viewModelScope.launch {
             appStateRepository.lastCheckedTimestampFlow.collect { ts ->
                 _uiState.update { it.copy(lastCheckedTimestamp = ts) }
+            }
+        }
+
+        viewModelScope.launch {
+            appStateRepository.supportInfoFlow.collect { supportInfo ->
+                _uiState.update { it.copy(supportInfo = supportInfo) }
             }
         }
 

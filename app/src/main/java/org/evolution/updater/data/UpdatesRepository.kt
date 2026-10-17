@@ -12,6 +12,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerializationException
 import org.evolution.updater.data.source.local.UpdatesLocalDataSource
 import org.evolution.updater.data.source.network.UpdatesNetworkDataSource
+import org.evolution.updater.data.source.network.toSupportInfo
 import org.evolution.updater.data.source.network.toUpdate
 import org.evolution.updater.deviceinfo.DeviceInfoUtils
 import org.evolution.updater.notifications.NotificationHelper
@@ -27,6 +28,7 @@ class UpdatesRepository(
     private val networkDataSource: UpdatesNetworkDataSource,
     private val localDataSource: UpdatesLocalDataSource,
     private val systemUpdateInfoPublisher: SystemUpdateInfoPublisher,
+    private val appStateRepository: AppStateRepository,
 ) {
     fun observeLocalUpdates(): Flow<List<Update>> = localDataSource.observeUpdates()
 
@@ -55,9 +57,13 @@ class UpdatesRepository(
             }
         }
 
-        val networkUpdates = withContext(Dispatchers.IO) {
-            networkDataSource.fetchUpdates().map { it.toUpdate() }.filter { filterUpdates(it) }
+        val networkResponse = withContext(Dispatchers.IO) {
+            networkDataSource.fetchUpdates()
         }
+        appStateRepository.setSupportInfo(
+            networkResponse.maxByOrNull { it.timestamp }?.toSupportInfo() ?: SupportInfo()
+        )
+        val networkUpdates = networkResponse.map { it.toUpdate() }.filter { filterUpdates(it) }
 
         if (networkUpdates.isEmpty()) {
             systemUpdateInfoPublisher.publish()
