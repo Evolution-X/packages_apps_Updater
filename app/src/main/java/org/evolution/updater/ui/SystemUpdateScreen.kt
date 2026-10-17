@@ -10,6 +10,7 @@ package org.evolution.updater.ui
 import android.content.Intent
 import android.text.format.DateFormat
 import android.text.format.DateUtils
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -51,6 +52,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.font.FontWeight
@@ -537,6 +539,13 @@ private fun DeviceInfoText(modifier: Modifier = Modifier) {
     }
 
     Column(modifier = modifier) {
+        Image(
+            painter = painterResource(R.drawable.ic_evolution_logo),
+            contentDescription = stringResource(R.string.brand_name),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+        )
         InfoLine(stringResource(R.string.header_lineage_version, DeviceInfoUtils.buildVersion))
         InfoLine(stringResource(R.string.header_android_version_full, DeviceInfoUtils.androidVersion))
         InfoLine(stringResource(R.string.header_security_update_full, securityPatch))
