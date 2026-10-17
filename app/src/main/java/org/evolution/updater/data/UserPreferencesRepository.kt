@@ -38,6 +38,8 @@ private object UserPreferencesKeys {
     val CHECK_INTERVAL = stringPreferencesKey("check_interval")
     val METERED_NETWORK_WARNING = booleanPreferencesKey("metered_network_warning")
     val PERIODIC_CHECK_ENABLED = booleanPreferencesKey("periodic_check_enabled")
+    val SHOW_LOGO = booleanPreferencesKey("show_logo")
+    val SHOW_UPDATER_ICON = booleanPreferencesKey("show_updater_icon")
     val STREAM_UPDATES = booleanPreferencesKey("stream_updates")
 }
 
@@ -122,6 +124,22 @@ class UserPreferencesRepository(context: Context) {
 
     suspend fun setStreamUpdates(value: Boolean) {
         userPreferences.edit { it[UserPreferencesKeys.STREAM_UPDATES] = value }
+    }
+
+    val showLogoFlow: Flow<Boolean> = userPreferencesFlow.map { preferences ->
+        preferences[UserPreferencesKeys.SHOW_LOGO] ?: true
+    }
+
+    suspend fun setShowLogo(value: Boolean) {
+        userPreferences.edit { it[UserPreferencesKeys.SHOW_LOGO] = value }
+    }
+
+    val showUpdaterIconFlow: Flow<Boolean> = userPreferencesFlow.map { preferences ->
+        preferences[UserPreferencesKeys.SHOW_UPDATER_ICON] ?: false
+    }
+
+    suspend fun setShowUpdaterIcon(value: Boolean) {
+        userPreferences.edit { it[UserPreferencesKeys.SHOW_UPDATER_ICON] = value }
     }
 
     fun getRecoveryUpdateEnabled(): Boolean = DeviceInfoUtils.isRecoveryUpdateEnabled

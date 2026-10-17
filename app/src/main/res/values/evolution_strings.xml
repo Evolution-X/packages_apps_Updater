@@ -11,4 +11,10 @@
     <string name="support_firmware">Firmware</string>
     <string name="support_donate">Donate</string>
 
+    <string name="pref_category_appearance">Appearance</string>
+    <string name="menu_show_logo">Show logo</string>
+    <string name="menu_show_logo_summary">Show the Evolution X logo on the main screen</string>
+    <string name="menu_show_updater_icon">Show updater icon</string>
+    <string name="menu_show_updater_icon_summary">Show the updater icon in the top bar. When off, the Evolution X logo is shown there instead</string>
+
 </resources>

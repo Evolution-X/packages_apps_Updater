@@ -10,7 +10,6 @@ package org.evolution.updater.ui
 import android.content.Intent
 import android.text.format.DateFormat
 import android.text.format.DateUtils
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -52,7 +51,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.font.FontWeight
@@ -91,6 +89,8 @@ fun SystemUpdateScreen(
     modifier: Modifier = Modifier,
     updateItem: UpdateItemState? = null,
     supportInfo: SupportInfo = SupportInfo(),
+    showLogo: Boolean = true,
+    showUpdaterIcon: Boolean = false,
     changelogState: ChangelogState = ChangelogState.Idle,
     onUpdateAction: (UpdateAction) -> Unit = {},
 ) {
@@ -108,6 +108,8 @@ fun SystemUpdateScreen(
                 onCheckClick = onCheckClick,
                 onLocalUpdateClick = onLocalUpdateClick,
                 onPreferencesClick = onPreferencesClick,
+                showUpdaterIcon = showUpdaterIcon,
+                showLogo = showLogo,
                 supportInfo = supportInfo,
                 updateOverflowActions = updateItem?.actions?.overflow ?: emptyList(),
                 onUpdateAction = onUpdateAction,
@@ -157,6 +159,15 @@ fun SystemUpdateScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Column(modifier = Modifier.widthIn(max = ContentMaxWidth)) {
+                if (showDeviceInfo && showLogo && showUpdaterIcon) {
+                    EvolutionLogoGlow(
+                        contentDescription = stringResource(R.string.brand_name),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = HorizontalPadding, end = HorizontalPadding),
+                    )
+                }
+
                 ScreenHeader(headline)
 
                 supportingText?.let {
@@ -403,6 +414,8 @@ private fun SystemUpdateTopBar(
     onCheckClick: () -> Unit,
     onLocalUpdateClick: () -> Unit,
     onPreferencesClick: () -> Unit,
+    showUpdaterIcon: Boolean,
+    showLogo: Boolean,
     supportInfo: SupportInfo = SupportInfo(),
     updateOverflowActions: List<UpdateAction> = emptyList(),
     onUpdateAction: (UpdateAction) -> Unit = {},
@@ -430,14 +443,23 @@ private fun SystemUpdateTopBar(
             )
         }
 
-        Icon(
-            imageVector = SystemUpdateIcon,
-            contentDescription = null,
-            modifier = Modifier
-                .align(Alignment.Center)
-                .size(IconSize),
-            tint = MaterialTheme.colorScheme.primary,
-        )
+        if (showUpdaterIcon) {
+            Icon(
+                imageVector = SystemUpdateIcon,
+                contentDescription = null,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(IconSize),
+                tint = MaterialTheme.colorScheme.primary,
+            )
+        } else if (showLogo) {
+            EvolutionLogoGlow(
+                contentDescription = stringResource(R.string.brand_name),
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .height(IconSize),
+            )
+        }
 
         Box(modifier = Modifier.align(Alignment.CenterEnd)) {
             FilledTonalIconButton(
@@ -561,13 +583,6 @@ private fun DeviceInfoText(
     }
 
     Column(modifier = modifier) {
-        Image(
-            painter = painterResource(R.drawable.ic_evolution_logo),
-            contentDescription = stringResource(R.string.brand_name),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
-        )
         InfoLine(stringResource(R.string.header_lineage_version, DeviceInfoUtils.buildVersion))
         InfoLine(stringResource(R.string.header_android_version_full, DeviceInfoUtils.androidVersion))
         InfoLine(stringResource(R.string.header_security_update_full, securityPatch))
