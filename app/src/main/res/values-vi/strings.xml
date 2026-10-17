@@ -80,8 +80,8 @@
     <string name="found_bug">Phát hiện lỗi? Hãy báo cáo lỗi bằng hướng dẫn báo cáo lỗi của chúng tôi:</string>
     <string name="updates_zero_state_title">Không có bản cập nhật nào</string>
     <string name="updates_zero_state_description">Các bản cập nhật mới cho thiết bị này sẽ xuất hiện ở đây khi có sẵn.</string>
-    <string name="list_build_version">LineageOS <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
-    <string name="list_build_version_date">LineageOS <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
+    <string name="list_build_version">Evolution X <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
+    <string name="list_build_version_date">Evolution X <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
     <string name="list_update_size">Kích thước cập nhật: <xliff:g id="size" example="1.34 GB">%1$s</xliff:g></string>
     <string name="list_security_update">Cập nhật bảo mật: <xliff:g id="date" example="Jan 2026">%1$s</xliff:g></string>
     <string name="list_major_android_upgrade">Bản nâng cấp Android chính</string>

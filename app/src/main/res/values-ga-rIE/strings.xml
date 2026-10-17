@@ -80,8 +80,8 @@
     <string name="found_bug">An bhfuair tú fabht? Tuairiscigh é lenár dtreoir tuairiscithe fabht:</string>
     <string name="updates_zero_state_title">Níl aon nuashonruithe ar fáil</string>
     <string name="updates_zero_state_description">Beidh leaganacha nua den fheiste seo le feiceáil anseo nuair a bheidh siad ar fáil.</string>
-    <string name="list_build_version">LineageOS <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
-    <string name="list_build_version_date">LineageOS <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
+    <string name="list_build_version">Evolution X <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
+    <string name="list_build_version_date">Evolution X <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
     <string name="list_update_size">Méid an nuashonraithe: <xliff:g id="size" example="1.34 GB">%1$s</xliff:g></string>
     <string name="list_security_update">Nuashonrú slándála: &lt;xliff:g id="date" example="Jan 2026"&gt;%1$s&lt;/xliff:g&gt;%1$s&lt;/xliff:g&gt;</string>
     <string name="list_major_android_upgrade">Uasghrádú mór Android</string>
