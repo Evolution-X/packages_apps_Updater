@@ -5,7 +5,17 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Atualizador</string>
+    <!-- This is matched with system_update_settings_list_item_title
+         from the Settings app. -->
     <string name="display_name">Atualizações do sistema</string>
+    <!-- Directory where the update files will be downloaded and stored.
+         WARNING: The application can and will delete any unknown file. -->
+    <!-- Directory where the downloads will be exported to.
+         The path is relative to the root of the external storage.-->
+    <!--
+        Optional placeholders replaced at runtime:
+          {device} - Device name
+    -->
     <string name="verification_failed_notification">Falha na verificação</string>
     <string name="verifying_download_notification">Verificando atualização</string>
     <string name="downloading_notification">Download</string>
@@ -38,12 +48,37 @@
     <string name="reboot">Reiniciar</string>
     <string name="menu_preferences">Preferências</string>
     <string name="preferences_summary">Sincronizar, baixar e instalar</string>
+    <!-- System update screen -->
+    <string name="system_up_to_date_title">Seu sistema está atualizado</string>
+    <string name="update_available_title">Atualização do sistema disponível</string>
+    <string name="checking_for_update_title">Verificando atualização…</string>
+    <string name="preparing_update_title">Preparando atualização do sistema…</string>
+    <string name="downloading_update_title">Baixando atualização do sistema…</string>
+    <string name="installing_update_title">Instalando atualização do sistema…</string>
+    <string name="verifying_update_title">Verificando atualização do sistema…</string>
+    <string name="update_paused_title">Atualização do sistema pausada</string>
+    <string name="action_download_install">Baixar e instalar</string>
+    <string name="downloading_installing_caption">Baixando e instalando a atualização</string>
+    <string name="metered_warning_footnote">Fazer download de atualizações em uma rede móvel ou Wi-Fi limitado pode causar cobranças adicionais.</string>
+    <string name="changelog_loading">Carregando alterações recentes…</string>
+    <string name="changelog_failed">As alterações recentes estão temporariamente indisponíveis.</string>
+    <string name="changelog_empty">Nenhum registro de alterações foi fornecido para esta versão.</string>
+    <string name="changelog_view_all">Ver todas as alterações</string>
+    <string name="updates_check_failed_title">Não foi possível verificar atualizações</string>
+    <string name="check_for_update">Verificar atualização</string>
+    <string name="header_last_check">Última verificação de atualização bem-sucedida:</string>
+    <string name="header_android_version_full">Versão do Android: <xliff:g id="version" example="16">%1$s</xliff:g></string>
+    <string name="header_security_update_full">Atualização de segurança do Android: <xliff:g id="date" example="5 July 2026">%1$s</xliff:g></string>
+    <string name="action_back">Voltar</string>
+    <string name="menu_more_options">Mais opções</string>
+    <!-- Update check -->
     <string name="check_for_updates">Conferir se há atualizações</string>
     <string name="checking_for_updates">Conferindo se há atualizações</string>
     <string name="check_your_internet_connection">Verifique sua conexão com a internet</string>
     <string name="updates_check_failed">A verificação de atualizações falhou. Tente novamente mais tarde. </string>
     <string name="header_last_updates_check_time">Última verificação: <xliff:g id="time" example="01:23">%1$s</xliff:g></string>
     <string name="header_last_updates_check">Última verificação: <xliff:g id="date" example="Jan 12">%1$s</xliff:g> (<xliff:g id="time" example="01:23">%2$s</xliff:g>)</string>
+    <!-- Background sync -->
     <string name="pref_category_background_sync">Sincronização em segundo plano</string>
     <string name="menu_auto_updates_check">Conferir se há atualizações periodicamente</string>
     <string name="menu_auto_updates_check_summary">Conferir se há atualizações em segundo plano</string>
@@ -51,6 +86,7 @@
     <string name="time_unit_day">Dia</string>
     <string name="time_unit_week">Semana</string>
     <string name="time_unit_month">Mês</string>
+    <!-- Download and installation -->
     <string name="pref_category_download_install">Download e instalação</string>
     <string name="menu_auto_delete_updates">Apagar atualizações automaticamente</string>
     <string name="menu_auto_delete_updates_summary">Remover atualizações baixadas após a instalação</string>
@@ -73,9 +109,9 @@
     <string name="snack_download_verified">Download concluído.</string>
     <string name="snack_update_not_installable">Esta atualização não pode ser instalada por cima da versão atual.</string>
     <string name="header_android_version">Android <xliff:g id="version" example="16">%1$s</xliff:g></string>
+    <!-- Banner -->
     <string name="build_date">Data de compilação</string>
     <string name="security_update">Atualização de segurança</string>
-    <string name="show_changelog">Alterações recentes</string>
     <string name="report_issues">Relatar problemas</string>
     <string name="header_review_updates">Revise as atualizações e as alterações recentes em</string>
     <string name="found_bug">Encontrou um bug? Reporte com nosso guia de relatórios de bug:</string>
